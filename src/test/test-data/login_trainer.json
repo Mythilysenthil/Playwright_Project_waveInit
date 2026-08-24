@@ -10,5 +10,13 @@
   "invalidUsername": {
     "email": "wrongtrainer@gmail.com",
     "password": "12345678"
+  },
+  "emptyUsername": {
+    "email": "",
+    "password": "12345678"
+  },
+  "emptyPassword": {
+    "email": "trainer01@gmail.com",
+    "password": ""
   }
 }
