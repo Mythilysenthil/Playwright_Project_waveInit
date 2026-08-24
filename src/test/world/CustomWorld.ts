@@ -17,7 +17,6 @@ export class CustomWorld extends World{
     sp!:SignINPage;
     rp!:RegisterPage;
     ap!:AdminPage;
-
 }
 
 setWorldConstructor(CustomWorld);
