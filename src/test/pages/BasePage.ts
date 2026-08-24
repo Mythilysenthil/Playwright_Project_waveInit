@@ -10,11 +10,9 @@ export class BasePage {
     async Navigate(): Promise<void> {
         try {
             const url = getEnv();
-
             logger.info(`Application Launching: ${url}`);
-
             await this.page.goto(url, {
-                waitUntil: "domcontentloaded"
+                waitUntil: 'domcontentloaded'
             });
 
             logger.info("Application launched successfully");
@@ -73,6 +71,17 @@ export class BasePage {
 
             logger.error(`Failed to retrieve text from element: ${error}`);
 
+            throw error;
+        }
+    }
+
+    async Fill(locator: Locator, message: string): Promise<void> {
+        try {
+            logger.info('Typing message');
+            await locator.fill(message);
+            logger.info('Message typed on the locator successfully');
+        } catch (error) {
+            logger.error(`Failed to fill: ${error}`);
             throw error;
         }
     }
