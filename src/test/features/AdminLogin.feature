@@ -13,7 +13,6 @@ Feature: Admin Login Feature - 24-08-2026
         When the user enters the "<InvalidUsername>" and "<InvalidPassword>"
         And the user clicks the Login button
         Then the user should see the "<ExpectedMessage>"
-
         Examples:
             | InvalidUsername | InvalidPassword | ExpectedMessage             |
             | admin           | admin123        | Invalid email or password   |
