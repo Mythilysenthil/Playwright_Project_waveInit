@@ -5,6 +5,7 @@ import { BasePage } from '../pages/BasePage';
 import { loginTrainerpage } from '../pages/login_trainerPage';
 import { SignINPage } from '../pages/SignINPage';
 import { RegisterPage } from '../pages/RegisterPage';
+import { part_prof_mgmt_page } from '../pages/part_prof_mgmt_page';
 import { AdminPage } from '../pages/AdminPage';
 
 
@@ -17,6 +18,8 @@ export class CustomWorld extends World{
     ltp!:loginTrainerpage
     sp!:SignINPage;
     rp!:RegisterPage;
+    ppm!:part_prof_mgmt_page;
+    skillCountBeforeAction!: number;
     ap!:AdminPage;
 }
 

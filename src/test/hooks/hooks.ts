@@ -7,6 +7,7 @@ import { loginTrainerpage } from '../pages/login_trainerPage'
 import { SignINPage } from '../pages/SignINPage'
 import { RegisterPage } from '../pages/RegisterPage'
 import { AdminPage } from '../pages/AdminPage'
+import { part_prof_mgmt_page } from '../pages/part_prof_mgmt_page'
 
 
 let browser : Browser
@@ -27,6 +28,7 @@ Before(async function(this:CustomWorld,scenario){
     this.sp=new SignINPage(this.page);
     this.rp=new RegisterPage(this.page);
     this.ap=new AdminPage(this.page);
+    this.ppm=new part_prof_mgmt_page(this.page);
 })
 
 After(async function(this:CustomWorld,scenario){
