@@ -41,4 +41,10 @@ export class loginTrainerpage extends BasePage {
     async clickSigninButton() {
         await this.Click(this.signinbutton);
     }
+
+    async getValidationMessage(locator: Locator): Promise<string> {
+        return await locator.evaluate(
+            (element: HTMLInputElement) => element.validationMessage
+       );
+    }
 }
