@@ -5,7 +5,7 @@
 
     "lib": ["esnext", "dom"],
 
-    "types": ["node", "@playwright/test"],
+    "types": ["node"],
 
     "typeRoots": [
       "./node_modules/@types",

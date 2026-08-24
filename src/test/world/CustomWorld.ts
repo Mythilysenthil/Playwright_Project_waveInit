@@ -5,6 +5,7 @@ import {setWorldConstructor, World} from '@cucumber/cucumber'
 import { BasePage } from '../pages/BasePage';
 import { SignINPage } from '../pages/SignINPage';
 import { RegisterPage } from '../pages/RegisterPage';
+import { part_prof_mgmt_page } from '../pages/part_prof_mgmt_page';
 
 
 export class CustomWorld extends World{
@@ -15,7 +16,8 @@ export class CustomWorld extends World{
     bp!:BasePage;
     sp!:SignINPage;
     rp!:RegisterPage;
-
+    ppm!:part_prof_mgmt_page;
+    skillCountBeforeAction!: number;
 }
 
 setWorldConstructor(CustomWorld);
