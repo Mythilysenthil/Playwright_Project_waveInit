@@ -5,6 +5,7 @@ import {logger}from '../utilities/logger'
 import { BasePage } from '../pages/BasePage'
 import { SignINPage } from '../pages/SignINPage'
 import { RegisterPage } from '../pages/RegisterPage'
+import { AdminPage } from '../pages/AdminPage'
 import { part_prof_mgmt_page } from '../pages/part_prof_mgmt_page'
 
 
@@ -24,6 +25,7 @@ Before(async function(this:CustomWorld,scenario){
     this.bp=new BasePage(this.page);
     this.sp=new SignINPage(this.page);
     this.rp=new RegisterPage(this.page);
+    this.ap=new AdminPage(this.page);
     this.ppm=new part_prof_mgmt_page(this.page);
 })
 

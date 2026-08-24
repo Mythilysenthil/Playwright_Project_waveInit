@@ -17,57 +17,73 @@ export class part_prof_mgmt_page extends BasePage {
 
     constructor(public page: Page) {
         super(page);
+
         this.learner_btn = this.page.locator("//div[@class='auth-role-selector']/child::button[3]");
+
         this.enterEmail = this.page.locator("//input[@placeholder='Enter your email']");
+
         this.enterPassword = this.page.locator("//input[@placeholder='Enter your password']");
+
         this.login_btn = this.page.locator("//button[@class='auth-submit-btn']");
+
         this.profile_sidebar_btn = this.page.locator("//nav[@class='wl-sidebar-nav']/child::div[5]/descendant::button");
+
         this.addSkill_btn = this.page.locator("//button[text()=' Add Skill']");
+
         this.skillName_input = this.page.locator("//form[@class='pfd-field']/child::input");
+
         this.addskillConfirm_btn = this.page.locator("//div[@class='pfd-footer']/child::button[2]");
+
         this.cancelskillConfirm_btn = this.page.locator("//div[@class='pfd-footer']/child::button[1]");
+
         this.removeSkill_btn = this.page.locator("//button[@type='button']/ancestor::span/child::button");
+
         this.cancel_delete_btn = this.page.locator("//div[@class='pfd-footer']/child::button[1]");
+
         this.Confirm_delete_btn = this.page.locator("//div[@class='pfd-footer']/child::button[2]");
     }
 
     async signIn(email: string, password: string): Promise<void> {
-        await this.Click("//div[@class='auth-role-selector']/child::button[3]");
-        await this.TypeText("//input[@placeholder='Enter your email']", email);
-        await this.TypeText("//input[@placeholder='Enter your password']", password);
-        await this.Click("//button[@class='auth-submit-btn']");
+        await this.learner_btn.click();
+
+        await this.enterEmail.fill(email);
+
+        await this.enterPassword.fill(password);
+
+        await this.login_btn.click();
     }
 
     async openProfileManagement(): Promise<void> {
-        await this.Click("//nav[@class='wl-sidebar-nav']/child::div[5]/descendant::button");
+        await this.profile_sidebar_btn.click();
     }
 
     async clickAddSkill(): Promise<void> {
-        await this.Click("//button[text()=' Add Skill']");
+        await this.addSkill_btn.click();
     }
 
     async enterSkillName(skillName: string): Promise<void> {
-        await this.TypeText("//form[@class='pfd-field']/child::input", skillName);
-        await this.skillName_input.press('Enter');
+        await this.skillName_input.fill(skillName);
+
+        await this.skillName_input.press("Enter");
     }
 
     async confirmAddSkill(): Promise<void> {
-        await this.Click("//div[@class='pfd-footer']/child::button[2]");
+        await this.addskillConfirm_btn.click();
     }
 
     async cancelSkillDialog(): Promise<void> {
-        await this.Click("//div[@class='pfd-footer']/child::button[1]");
+        await this.cancelskillConfirm_btn.click();
     }
 
     async deleteFirstSkill(): Promise<void> {
-        await this.Click("//button[@type='button']/ancestor::span/child::button");
+        await this.removeSkill_btn.first().click();
     }
 
     async confirmSkillDeletion(): Promise<void> {
-        await this.Click("//div[@class='pfd-footer']/child::button[2]");
+        await this.Confirm_delete_btn.click();
     }
 
     async getSkillCount(): Promise<number> {
-        return this.removeSkill_btn.count();
+        return await this.removeSkill_btn.count();
     }
 }

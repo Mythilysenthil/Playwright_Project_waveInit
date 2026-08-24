@@ -6,6 +6,7 @@ import { BasePage } from '../pages/BasePage';
 import { SignINPage } from '../pages/SignINPage';
 import { RegisterPage } from '../pages/RegisterPage';
 import { part_prof_mgmt_page } from '../pages/part_prof_mgmt_page';
+import { AdminPage } from '../pages/AdminPage';
 
 
 export class CustomWorld extends World{
@@ -18,6 +19,7 @@ export class CustomWorld extends World{
     rp!:RegisterPage;
     ppm!:part_prof_mgmt_page;
     skillCountBeforeAction!: number;
+    ap!:AdminPage;
 }
 
 setWorldConstructor(CustomWorld);
