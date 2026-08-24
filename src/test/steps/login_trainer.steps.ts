@@ -1,6 +1,6 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import { expect } from "@playwright/test";
-import { validdata, invalidPassword } from "../test-data/login_trainer.json";
+import { validdata, invalidPassword, invalidUsername } from "../test-data/login_trainer.json";
 import { CustomWorld } from "../world/CustomWorld";
 import { TIMEOUTS } from '../constants/timeouts';
 import { logger } from '../utilities/logger';
@@ -28,17 +28,22 @@ Then(`the trainer should be redirected to the dashboard page`, async function (t
     logger.info('DASHBOARD TEXT PASSED');
 });
 
-When(`the trainer enters invalid credentials`, async function (this: CustomWorld) {
+When(`the trainer enters invalid password credentials`, async function (this: CustomWorld) {
     await this.ltp.clicktrainertab();
-
-    logger.info('Entering invalid trainer credentials');
+    logger.info('Entering invalid password credentials');
     await this.ltp.enteremail(invalidPassword.email);
     await this.ltp.enterPassword(invalidPassword.password);
 });
 
+When(`the trainer enters invalid username credentials`, async function (this: CustomWorld) {
+    await this.ltp.clicktrainertab();
+    logger.info('Entering invalid username credentials');
+    await this.ltp.enteremail(invalidUsername.email);
+    await this.ltp.enterPassword(invalidUsername.password);
+});
+
 Then(`the trainer should see the error message {string}`,async function (this: CustomWorld, expectedMessage: string) {
-        logger.info(`Checking error message: ${expectedMessage}`);
-        await expect(this.ltp.errormsg).toHaveText(expectedMessage, {timeout: TIMEOUTS.ASSERTION});
-        logger.info('Invalid credentials error message displayed successfully');
-    }
-);
+    logger.info(`Checking error message: ${expectedMessage}`);
+    await expect(this.ltp.errormsg).toHaveText(expectedMessage, {timeout: TIMEOUTS.ASSERTION});
+    logger.info('Invalid credentials error message displayed successfully');
+});

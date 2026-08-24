@@ -11,8 +11,14 @@ Scenario: Verify that the trainer is able to login with valid credentials
     And the trainer clicks on the login button
     Then the trainer should be redirected to the dashboard page
 
-@invalidlogin
+@invalidpassword
 Scenario: Verify that the trainer is unable to login with invalid password
-    When the trainer enters invalid credentials
+    When the trainer enters invalid password credentials
     And the trainer clicks on the login button
     Then the trainer should see the error message "Invalid email or password"
+
+@invalidusername
+  Scenario: Verify that the trainer is unable to login with invalid username
+    When the trainer enters invalid username credentials
+    And the trainer clicks on the login button
+    Then the trainer should see the error message "Invalid email or password"    

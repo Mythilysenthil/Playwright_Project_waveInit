@@ -1,11 +1,14 @@
 {
-    "validdata":{
+  "validdata": {
     "email": "trainer01@gmail.com",
     "password": "12345678"
-    },
-
-    "invalidPassword": {
-    "email": "trainer01@example.com",
+  },
+  "invalidPassword": {
+    "email": "trainer01@gmail.com",
     "password": "WrongPassword"
-    }
+  },
+  "invalidUsername": {
+    "email": "wrongtrainer@gmail.com",
+    "password": "12345678"
+  }
 }
