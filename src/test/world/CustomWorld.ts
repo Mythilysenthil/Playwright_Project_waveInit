@@ -3,6 +3,8 @@ import { logger } from './../utilities/logger';
 import {Browser,Page,BrowserContext} from 'playwright'
 import {setWorldConstructor, World} from '@cucumber/cucumber'
 import { BasePage } from '../pages/BasePage';
+import { SignINPage } from '../pages/SignINPage';
+import { RegisterPage } from '../pages/RegisterPage';
 
 
 export class CustomWorld extends World{
@@ -11,6 +13,8 @@ export class CustomWorld extends World{
     page!:Page;
     logger=logger;
     bp!:BasePage;
+    sp!:SignINPage;
+    rp!:RegisterPage;
 
 }
 

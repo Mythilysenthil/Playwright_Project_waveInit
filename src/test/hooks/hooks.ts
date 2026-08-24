@@ -3,6 +3,8 @@ import{chromium,Browser} from '@playwright/test'
 import{CustomWorld}from '../world/CustomWorld'
 import {logger}from '../utilities/logger'
 import { BasePage } from '../pages/BasePage'
+import { SignINPage } from '../pages/SignINPage'
+import { RegisterPage } from '../pages/RegisterPage'
 
 
 let browser : Browser
@@ -19,6 +21,8 @@ Before(async function(this:CustomWorld,scenario){
     this.browserContext=await browser.newContext()
     this.page = await this.browserContext.newPage()
     this.bp=new BasePage(this.page);
+    this.sp=new SignINPage(this.page);
+    this.rp=new RegisterPage(this.page);
 })
 
 After(async function(this:CustomWorld,scenario){
