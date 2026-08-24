@@ -5,13 +5,8 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+# Dependencies
 
-# Cucumber Reports
-/reports/
-
-# Allure Reports
 /allure-results/
-/allure-report/
-
-# Logs
-*.log
+/reports/
+/rerun/

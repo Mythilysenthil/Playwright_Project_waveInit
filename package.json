@@ -14,7 +14,8 @@
     "posttest": "npx ts-node src/test/helper/report.mts",
     "allure:generate": "allure generate allure-results --clean -o allure-report",
     "allure:open": "allure open allure-report",
-    "debug": "cross-env ENV=qa PWDEBUG=1 cucumber-js"
+    "debug": "cross-env ENV=qa PWDEBUG=1 cucumber-js",
+    "dryrun": "npx cucumber-js --dry-run --format progress"
   },
   "keywords": [],
   "author": "",
@@ -34,6 +35,7 @@
     "winston": "^3.19.0"
   },
   "dependencies": {
+    "csv-parse": "^7.0.2",
     "dotenv": "^17.4.2"
   }
 }
