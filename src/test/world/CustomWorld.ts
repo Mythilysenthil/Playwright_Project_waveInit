@@ -5,6 +5,7 @@ import {setWorldConstructor, World} from '@cucumber/cucumber'
 import { BasePage } from '../pages/BasePage';
 import { SignINPage } from '../pages/SignINPage';
 import { RegisterPage } from '../pages/RegisterPage';
+import { AdminPage } from '../pages/AdminPage';
 
 
 export class CustomWorld extends World{
@@ -15,6 +16,7 @@ export class CustomWorld extends World{
     bp!:BasePage;
     sp!:SignINPage;
     rp!:RegisterPage;
+    ap!:AdminPage;
 
 }
 
