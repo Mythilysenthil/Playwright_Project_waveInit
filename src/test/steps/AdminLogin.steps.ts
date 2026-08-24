@@ -3,9 +3,7 @@ import { CustomWorld } from '../world/CustomWorld';
 import { expect } from '@playwright/test';
 import { CsvReader } from '../utilities/csvReader';
 import { AdminLoginData } from '../types/AdminLoginData.types';
-
 const adminloginData=CsvReader.read<AdminLoginData>("AdminLoginData.csv");
-
 When('the user clicks on the Admin Login', async function (this:CustomWorld) {
   // Write code here that turns the phrase above into concrete actions
   await this.sp.clickAdminButton();
@@ -49,7 +47,13 @@ Then('the user should see the {string}', async function (this: CustomWorld, expe
             message = await this.sp.adminPassowrd.evaluate(
                 element => (element as HTMLInputElement).validationMessage
             );
-        }
+          }
+          if (!message) {
+                message = await this.rp.PasswordInput.evaluate(
+                    element =>
+                        (element as HTMLInputElement).validationMessage
+                );
+            }
 
         expect(message).toBe(expectedMessage);
 

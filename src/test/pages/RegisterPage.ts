@@ -10,6 +10,7 @@ export class RegisterPage extends BasePage {
     readonly acceptTermsCheckbox: Locator;
     readonly CreateAccountButton: Locator;
     readonly RegistrationSuccessMessage: Locator;
+    readonly passwordMismatchMessage:Locator;
     constructor(public page: Page) {
         super(page);
         this.NameInput = this.page.locator("//input[@id='reg-name']");
@@ -20,6 +21,7 @@ export class RegisterPage extends BasePage {
         this.acceptTermsCheckbox = this.page.locator("//input[@type='checkbox']");
         this.CreateAccountButton = this.page.locator("//button[@type='submit']");
         this.RegistrationSuccessMessage = this.page.locator("//span[contains(text(),'Registration submitted successfully! Your account ')]");
+        this.passwordMismatchMessage=this.page.locator("//p[normalize-space()='Passwords do not match']");
     }
     async setName(name: string) {
         await this.NameInput.fill(name);
