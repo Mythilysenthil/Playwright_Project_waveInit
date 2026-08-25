@@ -8,6 +8,7 @@ import { SignINPage } from '../pages/SignINPage'
 import { RegisterPage } from '../pages/RegisterPage'
 import { AdminPage } from '../pages/AdminPage'
 import { part_prof_mgmt_page } from '../pages/part_prof_mgmt_page'
+import { TrainerModulepage } from '../pages/trainerModulePage'
 
 
 let browser : Browser
@@ -29,6 +30,7 @@ Before(async function(this:CustomWorld,scenario){
     this.rp=new RegisterPage(this.page);
     this.ap=new AdminPage(this.page);
     this.ppm=new part_prof_mgmt_page(this.page);
+    this.tmp = new TrainerModulepage(this.page);
 })
 
 After(async function(this:CustomWorld,scenario){
