@@ -20,6 +20,8 @@ export class CustomWorld extends World{
     rp!:RegisterPage;
     ppm!:part_prof_mgmt_page;
     skillCountBeforeAction!: number;
+    educationCountBeforeAction!: number;
+    activeProfileDialog?: 'skill' | 'education';
     ap!:AdminPage;
 }
 
