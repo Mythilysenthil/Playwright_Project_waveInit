@@ -11,6 +11,8 @@ export class RegisterPage extends BasePage {
     readonly CreateAccountButton: Locator;
     readonly RegistrationSuccessMessage: Locator;
     readonly passwordMismatchMessage:Locator;
+    readonly alreadyExistEmail:Locator;
+    readonly pendingApproval:Locator;
     constructor(public page: Page) {
         super(page);
         this.NameInput = this.page.locator("//input[@id='reg-name']");
@@ -22,12 +24,17 @@ export class RegisterPage extends BasePage {
         this.CreateAccountButton = this.page.locator("//button[@type='submit']");
         this.RegistrationSuccessMessage = this.page.locator("//span[contains(text(),'Registration submitted successfully! Your account ')]");
         this.passwordMismatchMessage=this.page.locator("//p[normalize-space()='Passwords do not match']");
+        this.alreadyExistEmail=this.page.locator("//span[@class='auth-error-text']");
+        this.pendingApproval=this.page.locator("//span[@class='auth-error-text']");
     }
     async setName(name: string) {
         await this.NameInput.fill(name);
     }
     async setEmail(email: string) {
         await this.EmailInput.fill(email+Date.now().toString()+"@gmail.com");
+    }
+    async setAlreadyExistEmail(email:string){
+        await this.TypeText(this.EmailInput,email)
     }
     async setMobile(mobile: string) {
         await this.MobileInput.fill(mobile);

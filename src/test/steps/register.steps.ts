@@ -3,9 +3,11 @@ import { CustomWorld } from '../world/CustomWorld';
 import { expect } from '@playwright/test';
 import { CsvReader } from '../utilities/csvReader';
 import { RegisterData } from '../types/RegisterData.types';
+import { ExcelReader } from '../utilities/ExcelReader';
+import { RegisterAlreadyExistEmail } from '../types/RegisterAlreadyExistEmail.types';
 
 const registerData = CsvReader.read<RegisterData>("RegisterData.csv");
-
+const invalidRegisterData=ExcelReader.read<RegisterAlreadyExistEmail>("RegisterAlreadyExistEmail.xlsx","Sheet1")
 Given('click the signup button', async function (this: CustomWorld) {
     await this.sp.clickSignUpButton();
 });
@@ -26,9 +28,7 @@ When('I submit the registration form', async function (this: CustomWorld) {
     await this.rp.clickCreateAccount();
 });
 
-Then(
-    'I should see a confirmation message indicating successful registration',
-    async function (this: CustomWorld) {
+Then('I should see a confirmation message indicating successful registration',async function (this: CustomWorld) {
 
         await expect(this.rp.RegistrationSuccessMessage).toBeVisible();
 
@@ -38,20 +38,7 @@ Then(
 );
 
 
-// ======================================================
-// INVALID REGISTRATION
-// ======================================================
-
-When(
-    'the user enters the {string}, {string}, {string}, {string} and {string}',
-    async function (
-        this: CustomWorld,
-        name: string,
-        email: string,
-        phone: string,
-        password: string,
-        confirmPassword: string
-    ) {
+When('the user enters the {string}, {string}, {string}, {string} and {string}',async function (this: CustomWorld,name: string,email: string,phone: string,password: string,confirmPassword: string) {
 
         await this.rp.setName(name);
         await this.rp.setEmail(email);
@@ -74,51 +61,67 @@ When(
 );
 
 
-Then(
-    'the user should can see the {string}',
-    async function (
-        this: CustomWorld,
-        expectedMessage: string
-    ) {
-
-        // ==========================================
-        // Browser HTML5 validation message
-        // ==========================================
-
+Then('the user should can see the {string}',async function (this: CustomWorld,expectedMessage: string) {
         if (expectedMessage === 'Please fill out this field.') {
-
             let message = '';
-
-            // Check Name field
             message = await this.rp.NameInput.evaluate(
                 element =>
                     (element as HTMLInputElement).validationMessage
             );
-
-            // Check Email field
             if (!message) {
                 message = await this.rp.EmailInput.evaluate(
                     element =>
                         (element as HTMLInputElement).validationMessage
                 );
             }
-
-            // Check Phone field
             if (!message) {
                 message = await this.rp.MobileInput.evaluate(
                     element =>
                         (element as HTMLInputElement).validationMessage
                 );
             }
-
             expect(message).toBe(expectedMessage);
         }
-
-
         else if (expectedMessage === 'Passwords do not match') {
-
-            await expect(this.rp.passwordMismatchMessage)
-                .toHaveText(expectedMessage);
+            await expect(this.rp.passwordMismatchMessage).toHaveText(expectedMessage);
         }
-    }
-);
+    
+    });
+
+When('the user enters the registration details with an existing email', async function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+    const data = invalidRegisterData[0]!;
+
+        await this.rp.setName(data.Name);
+        await this.rp.setAlreadyExistEmail(data.Email);
+        await this.rp.setMobile(String(data.Phone));
+        await this.rp.setPassword(data.password);
+        await this.rp.setConfirmPassword(data.Retype_password);
+        await this.rp.checkAcceptTerms()
+});
+
+Then('the user can see the message An account with this email already exists. Please sign in', async function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+  await expect(this.rp.alreadyExistEmail).toBeVisible();
+
+  await expect(this.rp.alreadyExistEmail).toContainText('An account with this email already exists. Please sign in');
+});
+When('the user enters the following registration details:', async function (this:CustomWorld,dataTable) {
+  // Write code here that turns the phrase above into concrete actions
+  
+        const data = dataTable.hashes()[0];
+        await this.rp.setName(data.Name);
+        await this.rp.setAlreadyExistEmail(data.Email);
+        await this.rp.setMobile(data.Phone);
+        await this.rp.setPassword(data.password);
+        await this.rp.setConfirmPassword(data.Retype_password);
+        await this.rp.checkAcceptTerms();
+
+});
+
+Then('the user should see the message An account with this email is already registered and pending admin approval.', async function () {
+  // Write code here that turns the phrase above into concrete actions
+   await expect(this.rp.pendingApproval).toBeVisible();
+
+   await expect(this.rp.pendingApproval).toContainText('An account with this email is already registered and pending admin approval.');
+});
