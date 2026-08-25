@@ -7,7 +7,7 @@ import { SignINPage } from '../pages/SignINPage';
 import { RegisterPage } from '../pages/RegisterPage';
 import { part_prof_mgmt_page } from '../pages/part_prof_mgmt_page';
 import { AdminPage } from '../pages/AdminPage';
-
+import { TrainingProgramPage } from '../pages/TrainingProgramPage';
 
 export class CustomWorld extends World{
     browser!:Browser;
@@ -23,6 +23,7 @@ export class CustomWorld extends World{
     educationCountBeforeAction!: number;
     activeProfileDialog?: 'skill' | 'education';
     ap!:AdminPage;
+    tp!:TrainingProgramPage;
 }
 
 setWorldConstructor(CustomWorld);
