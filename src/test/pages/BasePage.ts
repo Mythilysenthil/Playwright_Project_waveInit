@@ -111,6 +111,18 @@ async SelectDropdown(locator: Locator, option: string): Promise<void> {
 
     } catch (error) {
         logger.error(`Failed to select "${option}" from dropdown: ${error}`);
+
+    async SetDateTime(locator: Locator, dateTime: string): Promise<void> {
+    try {
+        await locator.fill(dateTime);
+        await locator.press("Tab");
+
+        const value = await locator.inputValue();
+
+        logger.info(`Date and time entered: ${value}`);
+
+    } catch (error) {
+        logger.error(`Failed to set date and time: ${error}`);
         throw error;
     }
 }

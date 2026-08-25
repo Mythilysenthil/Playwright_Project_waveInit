@@ -7,7 +7,7 @@ import { ExcelReader } from '../utilities/ExcelReader';
 import { RegisterAlreadyExistEmail } from '../types/RegisterAlreadyExistEmail.types';
 
 const registerData = CsvReader.read<RegisterData>("RegisterData.csv");
-const invalidRegisterData=ExcelReader.read<RegisterAlreadyExistEmail>("RegisterAlreadyExistEmail.xlsx","Sheet1")
+const invalidRegisterData=ExcelReader.read<RegisterAlreadyExistEmail>("RegisterAlreadyExistEmail.xlsx","Sheet1");
 Given('click the signup button', async function (this: CustomWorld) {
     await this.sp.clickSignUpButton();
 });

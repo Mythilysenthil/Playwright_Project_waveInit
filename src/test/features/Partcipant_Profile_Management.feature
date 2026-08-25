@@ -36,3 +36,36 @@ Background:
      And enter the skill name by typing in the skill input field
      And clicks the Add skill button
      Then the skill should be added to the profile successfully  
+
+   Scenario:  User add Education details to the profile
+     Given the user is on the profile management page
+     When the user clicks the add Education button
+     And enter the Education details
+     And clicks the Add Education button
+     Then the Education details should be added to the profile successfully
+
+   Scenario: User cancel the Education addition process
+     Given the user is on the profile management page
+     When the user clicks the add Education button
+     And enter the Education details
+     And clicks the cancel button
+     Then the Education details should not be added to the profile
+
+   Scenario: User click the Add Education button without entering any details
+     Given the user is on the profile management page
+     When the user clicks the add Education button
+     And clicks the Add Education button without entering any details
+     Then the user should see a validation message  
+
+   Scenario: User delete Education details from the profile
+     Given the user is on the profile management page
+     When the user deletes the Education details by clicking the delete button next to the Education details
+     And the user confirms the deletion
+     Then the Education details should be removed from the profile successfully
+
+   Scenario: User cancel the Education deletion process
+     Given the user is on the profile management page
+     When the user deletes the Education details by clicking the delete button next to the Education details
+     And clicks the cancel button
+     Then the Education details should not be removed from the profile    
+
