@@ -1,5 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./BasePage";
+import { LearnerEducation } from "../types/LearnerEducation.types";
 
 export class part_prof_mgmt_page extends BasePage {
     readonly learner_btn: Locator;
@@ -14,6 +15,20 @@ export class part_prof_mgmt_page extends BasePage {
     readonly removeSkill_btn: Locator;
     readonly cancel_delete_btn: Locator;
     readonly Confirm_delete_btn: Locator;
+    readonly Add_Education: Locator;        
+    readonly institution: Locator;
+    readonly degree: Locator;
+    readonly field_of_study: Locator;
+    readonly Yearrange: Locator;
+    readonly cgpa: Locator;
+    readonly requiredIntitution: Locator;
+    readonly requiredDegree: Locator;
+    readonly addEducationBtn: Locator;
+    readonly cancelEducationBtn: Locator;
+    readonly delEducationBtn: Locator;
+    readonly DeleteEducationConfirmBtn: Locator;
+    readonly cancelDeleteEducation: Locator;
+    
 
     constructor(public page: Page) {
         super(page);
@@ -41,6 +56,33 @@ export class part_prof_mgmt_page extends BasePage {
         this.cancel_delete_btn = this.page.locator("//div[@class='pfd-footer']/child::button[1]");
 
         this.Confirm_delete_btn = this.page.locator("//div[@class='pfd-footer']/child::button[2]");
+
+        this.Add_Education = this.page.locator("//div[normalize-space()='Education']/following-sibling::button[@type='button']");
+
+        this.institution = this.page.locator("//div[@class='pfd-body']/descendant::input[1]");
+
+        this.degree = this.page.locator("//div[@class='pfd-body']/descendant::input[2]");
+
+        this.field_of_study = this.page.locator("//div[@class='pfd-body']/descendant::input[3]");
+
+        this.Yearrange = this.page.locator("//div[@class='pfd-body']/descendant::input[4]");
+
+        this.cgpa = this.page.locator("//div[@class='pfd-body']/descendant::input[5]");
+
+        this.requiredIntitution = this.page.locator("//div[text()='Institution is required.']");
+
+        this.requiredDegree = this.page.locator("//div[text()='Degree is required.']");
+
+        this.addEducationBtn = this.page.locator("//div[@class='pfd-footer']/child::button[2]");
+
+        this.cancelEducationBtn = this.page.locator("//div[@class='pfd-footer']/child::button[1]");
+
+        this.delEducationBtn = this.page.locator("//button[@title='Delete Education']");
+
+        this.DeleteEducationConfirmBtn = this.page.locator("//div[@class='pfd-footer']/child::button[2]");
+
+        this.cancelDeleteEducation = this.page.locator("//div[@class='pfd-footer']/child::button[1]");
+
     }
 
     async signIn(email: string, password: string): Promise<void> {
@@ -63,7 +105,10 @@ export class part_prof_mgmt_page extends BasePage {
 
     async enterSkillName(skillName: string): Promise<void> {
         await this.skillName_input.fill(skillName);
+    }
 
+    async enterSkillNameAndPressEnter(skillName: string): Promise<void> {
+        await this.enterSkillName(skillName);
         await this.skillName_input.press("Enter");
     }
 
@@ -85,5 +130,43 @@ export class part_prof_mgmt_page extends BasePage {
 
     async getSkillCount(): Promise<number> {
         return await this.removeSkill_btn.count();
+    }
+
+    async clickAddEducation(): Promise<void> {
+        await this.Add_Education.click();
+    }
+
+    /** Clears every education field before data is entered into the dialog. */
+    async clearEducationFields(): Promise<void> {
+        await this.institution.clear();
+        await this.degree.clear();
+        await this.field_of_study.clear();
+        await this.Yearrange.clear();
+        await this.cgpa.clear();
+    }
+
+    async enterEducationDetails(education: LearnerEducation): Promise<void> {
+        await this.clearEducationFields();
+        await this.institution.fill(education.institution);
+        await this.degree.fill(education.degree);
+        await this.field_of_study.fill(education.Field_of_study);
+        await this.Yearrange.fill(education.Year_range);
+        await this.cgpa.fill(education.CGPA);
+    }
+
+    async confirmAddEducation(): Promise<void> {
+        await this.addEducationBtn.click();
+    }
+
+    async getEducationCount(): Promise<number> {
+        return await this.delEducationBtn.count();
+    }
+
+    async deleteFirstEducation(): Promise<void> {
+        await this.delEducationBtn.first().click();
+    }
+
+    async confirmEducationDeletion(): Promise<void> {
+        await this.DeleteEducationConfirmBtn.click();
     }
 }

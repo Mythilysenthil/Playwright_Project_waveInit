@@ -3,11 +3,10 @@ import { CustomWorld } from '../world/CustomWorld';
 import { expect } from '@playwright/test';
 import { CsvReader } from '../utilities/csvReader';
 import { RegisterData } from '../types/RegisterData.types';
-import { ExcelReader } from '../utilities/ExcelReader';
 import { RegisterAlreadyExistEmail } from '../types/RegisterAlreadyExistEmail.types';
 
 const registerData = CsvReader.read<RegisterData>("RegisterData.csv");
-const invalidRegisterData=ExcelReader.read<RegisterAlreadyExistEmail>("RegisterAlreadyExistEmail.xlsx","Sheet1")
+const invalidRegisterData = CsvReader.read<RegisterAlreadyExistEmail>('RegisterAlreadyExistEmail.csv');
 Given('click the signup button', async function (this: CustomWorld) {
     await this.sp.clickSignUpButton();
 });
