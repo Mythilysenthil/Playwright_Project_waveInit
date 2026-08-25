@@ -18,3 +18,13 @@ Feature: TamilKumar 24-06-2026 Register feature
             | Tamil | tamil           | 9087654321 |           | Kiot@1234       | Passwords do not match      |
             | Tamil | tamil           |            | Kiot@1234 | Kiot@1234       | Please fill out this field. |
             | Tamil | tamil@gmail.com | 9087654321 | Kiot@1234 | Wrong@1234      | Passwords do not match      |
+    Scenario: Register with existing email
+        When the user enters the registration details with an existing email
+        And I submit the registration form
+        Then the user can see the message An account with this email already exists. Please sign in
+    Scenario: Register with an email pending admin approval
+        When the user enters the following registration details:
+            | Name  | Email                    | Phone      | password  | Retype_password |
+            | Tamil | tamilkumar0027@gmail.com | 9087654321 | Kiot@1234 | Kiot@1234       |
+        And I submit the registration form
+        Then the user should see the message An account with this email is already registered and pending admin approval.

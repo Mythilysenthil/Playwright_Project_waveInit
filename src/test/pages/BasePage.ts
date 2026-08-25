@@ -84,5 +84,5 @@ export class BasePage {
             logger.error(`Failed to fill: ${error}`);
             throw error;
         }
-    }
+    } 
 }
