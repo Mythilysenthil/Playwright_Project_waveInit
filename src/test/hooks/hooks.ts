@@ -8,6 +8,8 @@ import { SignINPage } from '../pages/SignINPage'
 import { RegisterPage } from '../pages/RegisterPage'
 import { AdminPage } from '../pages/AdminPage'
 import { part_prof_mgmt_page } from '../pages/part_prof_mgmt_page'
+import { MyCoursePage } from '../pages/MyCoursePage'
+import { DashboardPage } from '../pages/DashboardPage'
 import { TrainingProgramPage } from '../pages/TrainingProgramPage'
 
 
@@ -30,6 +32,8 @@ Before(async function(this:CustomWorld,scenario){
     this.rp=new RegisterPage(this.page);
     this.ap=new AdminPage(this.page);
     this.ppm=new part_prof_mgmt_page(this.page);
+    this.mp=new MyCoursePage(this.page);
+    this.dp=new DashboardPage(this.page);
     this.tp=new TrainingProgramPage(this.page);
 })
 
