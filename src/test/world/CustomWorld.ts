@@ -7,6 +7,8 @@ import { SignINPage } from '../pages/SignINPage';
 import { RegisterPage } from '../pages/RegisterPage';
 import { part_prof_mgmt_page } from '../pages/part_prof_mgmt_page';
 import { AdminPage } from '../pages/AdminPage';
+import { MyCoursePage } from '../pages/MyCoursePage';
+import { DashboardPage } from '../pages/DashboardPage';
 
 
 export class CustomWorld extends World{
@@ -21,6 +23,8 @@ export class CustomWorld extends World{
     ppm!:part_prof_mgmt_page;
     skillCountBeforeAction!: number;
     ap!:AdminPage;
+    mp!:MyCoursePage;
+    dp!:DashboardPage;
 }
 
 setWorldConstructor(CustomWorld);

@@ -85,4 +85,33 @@ export class BasePage {
             throw error;
         }
     } 
+    async GetAllTextContents(selector: Locator): Promise<string[]> {
+        try {
+            const texts = await selector.allTextContents();
+
+            const textList = texts
+                .map(text => text.trim())
+                .filter(text => text.length > 0);
+
+            logger.info(`Retrieved ${textList.length} text contents`);
+
+            return textList;
+
+        } catch (error) {
+            logger.error(`Failed to retrieve all text contents: ${error}`);
+            throw error;
+        }
+    }
+    // Select an option from dropdown by visible text
+async SelectDropdown(locator: Locator, option: string): Promise<void> {
+    try {
+        await locator.selectOption({ label: option });
+
+        logger.info(`Selected "${option}" from dropdown`);
+
+    } catch (error) {
+        logger.error(`Failed to select "${option}" from dropdown: ${error}`);
+        throw error;
+    }
+}
 }
