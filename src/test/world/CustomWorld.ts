@@ -7,6 +7,8 @@ import { SignINPage } from '../pages/SignINPage';
 import { RegisterPage } from '../pages/RegisterPage';
 import { part_prof_mgmt_page } from '../pages/part_prof_mgmt_page';
 import { AdminPage } from '../pages/AdminPage';
+import { AIAssistantPage } from '../pages/AIAssistantPage';
+
 import { TrainingProgramPage } from '../pages/TrainingProgramPage';
 
 export class CustomWorld extends World{
@@ -23,6 +25,7 @@ export class CustomWorld extends World{
     educationCountBeforeAction!: number;
     activeProfileDialog?: 'skill' | 'education';
     ap!:AdminPage;
+    ai!:AIAssistantPage;
     tp!:TrainingProgramPage;
 }
 
