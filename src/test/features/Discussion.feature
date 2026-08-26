@@ -1,3 +1,4 @@
+@Tamil
 Feature: Discussion Feature
 
     Background:
