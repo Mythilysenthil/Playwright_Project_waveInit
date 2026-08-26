@@ -1,6 +1,7 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./BasePage";
 import { LearnerEducation } from "../types/LearnerEducation.types";
+import { SocialLinks } from "../types/SocialLinks.types";
 
 export class part_prof_mgmt_page extends BasePage {
     readonly learner_btn: Locator;
@@ -28,6 +29,14 @@ export class part_prof_mgmt_page extends BasePage {
     readonly delEducationBtn: Locator;
     readonly DeleteEducationConfirmBtn: Locator;
     readonly cancelDeleteEducation: Locator;
+    readonly editEducattion: Locator;
+    readonly SocialLinksEditBtn: Locator;
+    readonly linkedinInput: Locator;
+    readonly githubInput: Locator;
+    readonly saveSocialLinksBtn: Locator;
+    readonly cancelSocialLinksBtn: Locator;
+    readonly assertLinkedinText: Locator;
+    readonly assertGithubText: Locator;
     
 
     constructor(public page: Page) {
@@ -82,6 +91,22 @@ export class part_prof_mgmt_page extends BasePage {
         this.DeleteEducationConfirmBtn = this.page.locator("//div[@class='pfd-footer']/child::button[2]");
 
         this.cancelDeleteEducation = this.page.locator("//div[@class='pfd-footer']/child::button[1]");
+
+        this.editEducattion = this.page.locator("//button[@title='Edit Education']");
+
+        this.SocialLinksEditBtn = this.page.locator("//div[text()='Social Links']/following::button[text()=' Edit'][1]");
+
+        this.linkedinInput = this.page.locator("//div[@class='pfd-body']/descendant::input[1]");
+
+        this.githubInput = this.page.locator("//div[@class='pfd-body']/descendant::input[2]");
+
+        this.saveSocialLinksBtn = this.page.locator("//div[@class='pfd-footer']/child::button[2]");
+
+        this.cancelSocialLinksBtn = this.page.locator("//div[@class='pfd-footer']/child::button[1]");
+
+        this.assertLinkedinText = this.page.locator("//div[text()='LinkedIn']/following::a[1]");
+
+        this.assertGithubText = this.page.locator("//div[text()='GitHub']/following::a[1]");
 
     }
 
@@ -156,6 +181,69 @@ export class part_prof_mgmt_page extends BasePage {
 
     async confirmAddEducation(): Promise<void> {
         await this.addEducationBtn.click();
+    }
+
+    async editFirstEducation(): Promise<void> {
+        await this.editEducattion.first().click();
+    }
+
+    /** The education form uses the same primary footer action for Save and Add. */
+    async saveEducationDetails(): Promise<void> {
+        await this.addEducationBtn.click();
+    }
+
+    async cancelEducationEdit(): Promise<void> {
+        await this.cancelEducationBtn.click();
+    }
+
+    async getEducationDetailsFromForm(): Promise<LearnerEducation> {
+        return {
+            institution: await this.institution.inputValue(),
+            degree: await this.degree.inputValue(),
+            Field_of_study: await this.field_of_study.inputValue(),
+            Year_range: await this.Yearrange.inputValue(),
+            CGPA: await this.cgpa.inputValue()
+        };
+    }
+
+    async areEducationDetailsVisible(education: LearnerEducation): Promise<boolean> {
+        const values = [
+            education.institution,
+            education.degree,
+            education.Field_of_study,
+            education.Year_range,
+            education.CGPA
+        ];
+
+        const visibility = await Promise.all(
+            values.map(value => this.page.getByText(value, { exact: true }).last().isVisible())
+        );
+
+        return visibility.every(Boolean);
+    }
+
+    async clickSocialLinksEdit(): Promise<void> {
+        await this.SocialLinksEditBtn.click();
+    }
+
+    async enterSocialLinks(socialLinks: SocialLinks): Promise<void> {
+        await this.linkedinInput.fill(socialLinks.linkedin);
+        await this.githubInput.fill(socialLinks.github);
+    }
+
+    async saveSocialLinks(): Promise<void> {
+        await this.saveSocialLinksBtn.click();
+    }
+
+    async cancelSocialLinks(): Promise<void> {
+        await this.cancelSocialLinksBtn.click();
+    }
+
+    async getDisplayedSocialLinks(): Promise<SocialLinks> {
+        return {
+            linkedin: (await this.assertLinkedinText.innerText()).trim(),
+            github: (await this.assertGithubText.innerText()).trim()
+        };
     }
 
     async getEducationCount(): Promise<number> {

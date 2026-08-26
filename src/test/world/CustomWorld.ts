@@ -7,6 +7,7 @@ import { SignINPage } from '../pages/SignINPage';
 import { RegisterPage } from '../pages/RegisterPage';
 import { part_prof_mgmt_page } from '../pages/part_prof_mgmt_page';
 import { AdminPage } from '../pages/AdminPage';
+import { LearnerEducation } from '../types/LearnerEducation.types';
 
 
 export class CustomWorld extends World{
@@ -21,6 +22,8 @@ export class CustomWorld extends World{
     ppm!:part_prof_mgmt_page;
     skillCountBeforeAction!: number;
     educationCountBeforeAction!: number;
+    originalEducation!: LearnerEducation;
+    updatedEducation!: LearnerEducation;
     activeProfileDialog?: 'skill' | 'education';
     ap!:AdminPage;
 }
