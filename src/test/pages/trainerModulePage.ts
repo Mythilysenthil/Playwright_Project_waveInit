@@ -12,6 +12,10 @@ export class TrainerModulepage extends BasePage {
     readonly summary: Locator;
     readonly createbtn: Locator;
     readonly module: Locator;
+    readonly emptyTitle: Locator;
+    readonly editbtn: Locator;
+    readonly deletebtn: Locator;
+    readonly conformDelete: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -26,6 +30,10 @@ export class TrainerModulepage extends BasePage {
         this.summary = page.locator("//form[@class='wl-modal-card']/textarea[2]");
         this.createbtn = page.locator("//div[@class='wl-modal-actions']/button[@type='submit']");
         this.module = page.locator("//div[@class='wl-module-row-header']/span[@class='wl-module-title']");
+        this.emptyTitle = page.locator("//div[text()='Title is required']");
+        this.editbtn = page.locator("(//div[@class='wl-module-actions']/button[@title='Edit'])[1]");
+        this.deletebtn = page.locator("(//div[@class='wl-module-actions']/button[@title='Delete'])[1]");
+        this.conformDelete = page.locator("//div[@class='wam-actions']/button/span[text()='Delete Lesson']");
     }
 
     async clickMyTrainer(){
@@ -63,5 +71,40 @@ export class TrainerModulepage extends BasePage {
     async validModule(expectedTitle: string) {
         const module = this.module.filter({ hasText: expectedTitle });
         return await module.first().textContent();
+    }
+
+    async isModuleVisible(moduleTitle: string) {
+        const module = this.module.filter({
+            hasText: moduleTitle
+        });
+        return await module.first().isVisible().catch(() => false);
+    }
+
+    async clickeditbtn(){
+        await this.Click(this.editbtn);
+    }
+
+    async editTitle(title: string) {
+        await this.Fill(this.title, title);
+    }
+
+    async editDescription(description: string) {
+        await this.Fill(this.description, description);
+    }
+
+    async editSummary(summary: string) {
+        await this.Fill(this.summary, summary);
+    }
+
+    async clickSave() {
+        await this.Click(this.createbtn);
+    }
+
+    async clickDelete(){
+        await this.Click(this.deletebtn);
+    }
+
+    async clickConformDelete(){
+        await this.Click(this.conformDelete);
     }
 }    

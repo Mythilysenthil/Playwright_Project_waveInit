@@ -1,5 +1,5 @@
-@Subathra
-Feature: Subathra_Admin_Login_Feature_24/08/2026
+@Subathra @AdminLogin
+Feature: Subathra_Admin_Login_Feature_24/08/2026_Updated_26/08/2026
 
     Background:
         Given the user launches the application
@@ -20,3 +20,5 @@ Feature: Subathra_Admin_Login_Feature_24/08/2026
             | admin@test.com  | admin           | Invalid email or password   |
             | admin@test.com  |                 | Please fill out this field. |
             |                 | admin123        | Please fill out this field. |
+
+    
