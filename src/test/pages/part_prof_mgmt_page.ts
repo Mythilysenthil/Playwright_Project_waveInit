@@ -54,11 +54,14 @@ export class part_prof_mgmt_page extends BasePage {
 
         this.addSkill_btn = this.page.locator("//button[text()=' Add Skill']");
 
-        this.skillName_input = this.page.locator("//form[@class='pfd-field']/child::input");
+        // Scope these locators to the visible skill dialog.  The page uses the same
+        // footer markup for several dialogs, so a page-wide "second button" can
+        // resolve to a disabled button while another dialog is being re-rendered.
+        this.skillName_input = this.page.locator(".pfd-body:visible form.pfd-field input");
 
-        this.addskillConfirm_btn = this.page.locator("//div[@class='pfd-footer']/child::button[2]");
+        this.addskillConfirm_btn = this.page.locator(".pfd-footer:visible > button.pfd-btn-primary");
 
-        this.cancelskillConfirm_btn = this.page.locator("//div[@class='pfd-footer']/child::button[1]");
+        this.cancelskillConfirm_btn = this.page.locator(".pfd-footer:visible > button:first-child");
 
         this.removeSkill_btn = this.page.locator("//button[@type='button']/ancestor::span/child::button");
 
@@ -130,6 +133,9 @@ export class part_prof_mgmt_page extends BasePage {
 
     async enterSkillName(skillName: string): Promise<void> {
         await this.skillName_input.fill(skillName);
+        // Some dialog implementations enable their submit action on blur rather
+        // than on the input event alone.
+        await this.skillName_input.blur();
     }
 
     async enterSkillNameAndPressEnter(skillName: string): Promise<void> {
@@ -138,6 +144,8 @@ export class part_prof_mgmt_page extends BasePage {
     }
 
     async confirmAddSkill(): Promise<void> {
+        await this.addskillConfirm_btn.waitFor({ state: "visible" });
+        await this.addskillConfirm_btn.waitFor({ state: "attached" });
         await this.addskillConfirm_btn.click();
     }
 
