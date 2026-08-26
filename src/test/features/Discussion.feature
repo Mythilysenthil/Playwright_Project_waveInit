@@ -1,3 +1,4 @@
+@Tamil @Discussion
 Feature: Discussion Feature
 
     Background:
@@ -19,3 +20,16 @@ Feature: Discussion Feature
             | option      |
             | Normal Post |
             | Question    |
+    Scenario: Post the discussion with an empty question and without selecting a post type
+        When Click my discussion
+        And click Post
+        Then user can see the required validation messages
+    Scenario Outline: Delete the created discussion post
+        When Click my discussion
+        And select the created post by "<option>"
+        And click Delete
+        Then user can see the discussion post is deleted successfully
+        Examples:
+            | option |
+            | Discussion |
+            | Question |
