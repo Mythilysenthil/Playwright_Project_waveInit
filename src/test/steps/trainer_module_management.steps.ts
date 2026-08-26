@@ -57,3 +57,67 @@ Then(`the trainer should see the newly added module`, async function (this: Cust
     console.log("ACTUAL MODULE:", actualModule);
     await expect(actualModule?.trim()).toBe(expectedModule);
 });
+
+When(`the trainer leaves the module name empty`, async function (this: CustomWorld) {
+    await this.tmp.enterTitle("");
+});
+
+Then(`the trainer should see the module name validation message`, async function (this: CustomWorld) {
+   await expect(this.tmp.emptyTitle).toBeVisible();
+    await expect(this.tmp.emptyTitle).toHaveText("Title is required");
+});
+
+When(`the trainer selects an existing module for editing`, async function (this: CustomWorld) {
+    await this.tmp.clicklessons();
+    await this.tmp.clickeditbtn();
+});
+
+When(`the trainer edits the module details`, async function (this: CustomWorld) {
+    const data = moduleData[0]!;
+
+    await this.tmp.editTitle(data.EditTitle);
+    await this.tmp.editDescription(data.EditDescription);
+    await this.tmp.editSummary(data.EditSummary);
+});
+
+When(`the trainer saves the changes`, async function (this: CustomWorld) {
+   await this.tmp.clickSave();
+});
+
+Then(`the trainer should see the updated module details`, async function (this: CustomWorld) {
+    const data = moduleData[0]!;
+
+    const expectedModule = data.EditTitle;
+    const actualModule = await this.tmp.validModule(expectedModule);
+
+    console.log("EXPECTED UPDATED MODULE:", expectedModule);
+    console.log("ACTUAL UPDATED MODULE:", actualModule);
+    await expect(actualModule?.trim()).toBe(expectedModule);
+});
+
+When(`the trainer selects an existing module for deletion`, async function (this: CustomWorld) {
+    await this.tmp.clicklessons();
+});
+
+When(`the trainer deletes the module`, async function (this: CustomWorld) {
+    await this.tmp.clickDelete();
+});
+
+When(`the trainer confirms the deletion`, async function (this: CustomWorld) {
+    await this.tmp.clickConformDelete();
+});
+
+Then(`the trainer should not see the deleted module`, async function (this: CustomWorld) {
+    const deletedModule = moduleData[0]!.EditTitle;
+
+    const deletedModuleLocator = this.tmp.module.filter({
+        hasText: deletedModule
+    });
+
+    await expect(deletedModuleLocator).toHaveCount(0, {
+        timeout: TIMEOUTS.ASSERTION
+    });
+
+    console.log("DELETED MODULE:", deletedModule);
+    console.log("Module successfully deleted");
+});

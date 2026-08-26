@@ -11,10 +11,10 @@ import { TrainerModulepage } from '../pages/trainerModulePage';
 import { transports } from 'winston';
 import { MyCoursePage } from '../pages/MyCoursePage';
 import { DashboardPage } from '../pages/DashboardPage';
+import { TrainigProgramPage } from '../pages/TrainingProgramPage';
 import { AIAssistantPage } from '../pages/AIAssistantPage';
 import { LearnerEducation } from '../types/LearnerEducation.types';
-
-import { TrainingProgramPage } from '../pages/TrainingProgramPage';
+import { CoursePage } from '../pages/CoursePage';
 
 export class CustomWorld extends World{
     browser!:Browser;
@@ -35,8 +35,9 @@ export class CustomWorld extends World{
     tmp!:TrainerModulepage;
     mp!:MyCoursePage;
     dp!:DashboardPage;
+    tp!:TrainigProgramPage;
     ai!:AIAssistantPage;
-    tp!:TrainingProgramPage;
+    cp!:CoursePage;
 }
 
 setWorldConstructor(CustomWorld);
