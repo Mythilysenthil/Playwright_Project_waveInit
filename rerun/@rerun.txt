@@ -1,7 +1,14 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 src\test\features\AdminLogin.feature:24:28:32:36:40
 =======
 src\test\features\AIAssistant.feature:10:16
 src\test\features\learnerLogin.feature:7:22
 
 >>>>>>> 10e3e29ceaba90b25f57eb46c61289309b6ab9d1
+=======
+src\test\features\AdminLogin.feature:24:28:32:36:40
+src\test\features\AIAssistant.feature:10:16
+src\test\features\learnerLogin.feature:7:22
+
+>>>>>>> a544aff6cd5daae7a259245756402833cc9e0749
