@@ -12,6 +12,8 @@ import { transports } from 'winston';
 import { MyCoursePage } from '../pages/MyCoursePage';
 import { DashboardPage } from '../pages/DashboardPage';
 import { TrainigProgramPage } from '../pages/TrainingProgramPage';
+import { AIAssistantPage } from '../pages/AIAssistantPage';
+import { CoursePage } from '../pages/CoursePage';
 
 export class CustomWorld extends World{
     browser!:Browser;
@@ -31,6 +33,8 @@ export class CustomWorld extends World{
     mp!:MyCoursePage;
     dp!:DashboardPage;
     tp!:TrainigProgramPage;
+    ai!:AIAssistantPage;
+    cp!:CoursePage;
 }
 
 setWorldConstructor(CustomWorld);

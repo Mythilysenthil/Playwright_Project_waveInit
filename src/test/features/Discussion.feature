@@ -1,4 +1,4 @@
-Scenario: TamilKumar 26-08-2026 Discussion Feature
+Feature: Discussion Feature
 
     Background:
         Given the user launches the application
@@ -17,5 +17,5 @@ Scenario: TamilKumar 26-08-2026 Discussion Feature
 
         Examples:
             | option      |
-            | Normal post |
+            | Normal Post |
             | Question    |
