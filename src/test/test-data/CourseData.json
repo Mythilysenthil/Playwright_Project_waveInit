@@ -1,0 +1,8 @@
+{
+  "CourseSearch": {
+    "validTitle": "Playwright",
+    "validTrainer": "Subathra",
+    "invalidTitle": "InvalidCourseXYZ",
+    "invalidTrainer": "InvalidTrainerXYZ"
+  }
+}

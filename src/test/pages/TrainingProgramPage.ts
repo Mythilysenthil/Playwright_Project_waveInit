@@ -12,6 +12,12 @@ export class TrainigProgramPage extends BasePage{
     readonly createTrainingSession:Locator;
     readonly trainingCreated:Locator;
     readonly trainerRequired:Locator;
+    readonly searchCourse:Locator;
+    readonly courses:Locator;
+    readonly noCourseFound:Locator;
+    readonly viewDetails:Locator;
+    readonly trainingDetails:Locator;
+
     constructor(page:Page){
         super(page);
         this.createTraining=this.page.locator("//button[@class='reg-admin-btn reg-admin-btn--primary']")
@@ -23,7 +29,12 @@ export class TrainigProgramPage extends BasePage{
         this.endDateAndTime = this.page.locator("input[type='datetime-local']").nth(1);
         this.createTrainingSession=this.page.locator("//button[@type='submit']");
         this.trainingCreated=this.page.locator("//body/div[@id='root']/div[@class='fixed bottom-6 right-6 z-[999999] flex flex-col-reverse gap-2.5 pointer-events-none']/div[@class='pointer-events-auto']/div/div[1]")
-        this.trainerRequired=this.page.locator("//div[contains(text(),'Trainer ID or Trainer IDs is required')]")
+        this.trainerRequired=this.page.locator("//div[contains(text(),'Trainer ID or Trainer IDs is required')]");
+        this.searchCourse=this.page.locator("//input[@placeholder='Search by title or trainer...']");
+        this.courses=this.page.locator("//tr/td[1]");
+        this.noCourseFound=this.page.locator("//h3[normalize-space()='No Trainings Found']");
+        this.viewDetails=this.page.locator("//button[@title='View Details']").first();
+        this.trainingDetails=this.page.locator("//h3[normalize-space()='Training Details']")
     }
     async clickAddCreateTraining(){
         await this.Click(this.createTraining)
@@ -47,5 +58,17 @@ export class TrainigProgramPage extends BasePage{
     }
     async clickCreateTraining(){
         await this.Click(this.createTrainingSession)
+    }
+    async setCourse(course:string){
+    await this.TypeText(this.searchCourse,course)
+  }
+    async getAllCourses(){
+    
+        await this.courses.first().waitFor({ state: "visible" });
+        return await this.GetAllTextContents(this.courses);
+   
+}
+    async clickViewdetails(){
+        await this.Click(this.viewDetails)
     }
 }

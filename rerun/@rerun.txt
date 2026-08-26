@@ -1,3 +1,4 @@
+src\test\features\AdminLogin.feature:24:28:32:36:40
 src\test\features\AIAssistant.feature:10:16
 src\test\features\learnerLogin.feature:7:22
 

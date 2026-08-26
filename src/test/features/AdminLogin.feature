@@ -1,5 +1,5 @@
 @Subathra
-Feature: Subathra_Admin_Login_Feature_24/08/2026
+Feature: Subathra_Admin_Login_Feature_24/08/2026_Updated_26/08/2026
 
     Background:
         Given the user launches the application
@@ -20,3 +20,24 @@ Feature: Subathra_Admin_Login_Feature_24/08/2026
             | admin@test.com  | admin           | Invalid email or password   |
             | admin@test.com  |                 | Please fill out this field. |
             |                 | admin123        | Please fill out this field. |
+
+    Scenario: Search the course by valid title
+        When The user enters the valid search title
+        Then Only valid courses should be shown
+
+    Scenario: Search the course by trainer
+        When The user enters the valid trainer name
+        Then Only courses associated with the trainer should be shown
+
+    Scenario: Search the course by invalid title
+        When The user enters an invalid search title
+        Then No courses should be shown
+
+    Scenario: Search the course by invalid trainer
+        When The user enters an invalid trainer name
+        Then No courses should be shown
+
+    Scenario: View details of the course
+        When The user enters the valid search title
+        And click view details of the searched course
+        Then show details of the course
