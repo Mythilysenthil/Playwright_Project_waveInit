@@ -100,4 +100,17 @@ export class BasePage {
         throw error;
     }
 }
+
+    async GetAllTextContents(locator: Locator): Promise<string[]> {
+        try {
+            const texts = await locator.allTextContents();
+            logger.info(`Retrieved all text contents successfully`);
+            return texts;
+        } 
+        catch (error) {
+            logger.error(`Failed to retrieve all text contents: ${error}`);
+            throw error;
+        }
+    }
+
 }
