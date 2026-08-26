@@ -11,6 +11,7 @@ export class BasePage {
         try {
             const url = getEnv();
             logger.info(`Application Launching: ${url}`);
+
             await this.page.goto(url, {
                 waitUntil: 'domcontentloaded'
             });
@@ -18,9 +19,7 @@ export class BasePage {
             logger.info("Application launched successfully");
 
         } catch (error) {
-
             logger.error(`Failed to launch application: ${error}`);
-
             throw error;
         }
     }
@@ -28,15 +27,12 @@ export class BasePage {
     // Click on an element
     async Click(selector: Locator): Promise<void> {
         try {
-
             await selector.click();
 
             logger.info(`Clicked on element successfully`);
 
         } catch (error) {
-
             logger.error(`Failed to click on element: ${error}`);
-
             throw error;
         }
     }
@@ -44,15 +40,12 @@ export class BasePage {
     // Enter text into an input field
     async TypeText(selector: Locator, text: string): Promise<void> {
         try {
-
             await selector.fill(text);
 
             logger.info(`Typed text "${text}" into the element`);
 
         } catch (error) {
-
             logger.error(`Failed to type text "${text}": ${error}`);
-
             throw error;
         }
     }
@@ -60,7 +53,6 @@ export class BasePage {
     // Get text from an element
     async GetText(selector: Locator): Promise<string> {
         try {
-
             const text = await selector.textContent();
 
             logger.info(`Retrieved text from the element`);
@@ -68,23 +60,27 @@ export class BasePage {
             return text || "";
 
         } catch (error) {
-
             logger.error(`Failed to retrieve text from element: ${error}`);
-
             throw error;
         }
     }
 
+    // Fill text into an input field
     async Fill(locator: Locator, message: string): Promise<void> {
         try {
             logger.info('Typing message');
+
             await locator.fill(message);
+
             logger.info('Message typed on the locator successfully');
+
         } catch (error) {
             logger.error(`Failed to fill: ${error}`);
             throw error;
         }
-    } 
+    }
+
+    // Get all text contents
     async GetAllTextContents(selector: Locator): Promise<string[]> {
         try {
             const texts = await selector.allTextContents();
@@ -102,30 +98,34 @@ export class BasePage {
             throw error;
         }
     }
+
     // Select an option from dropdown by visible text
-async SelectDropdown(locator: Locator, option: string): Promise<void> {
-    try {
-        await locator.selectOption({ label: option });
+    async SelectDropdown(locator: Locator, option: string): Promise<void> {
+        try {
+            await locator.selectOption({ label: option });
 
-        logger.info(`Selected "${option}" from dropdown`);
+            logger.info(`Selected "${option}" from dropdown`);
 
-    } catch (error) {
-        logger.error(`Failed to select "${option}" from dropdown: ${error}`);
-        throw error;
+        } catch (error) {
+            logger.error(`Failed to select "${option}" from dropdown: ${error}`);
+            throw error;
+        }
     }
-}
-async SetDateTime(locator: Locator, dateTime: string): Promise<void> {
-    try {
-        await locator.fill(dateTime);
-        await locator.press("Tab");
 
-        const value = await locator.inputValue();
+    // Set date and time
+    async SetDateTime(locator: Locator, dateTime: string): Promise<void> {
+        try {
+            await locator.fill(dateTime);
+            await locator.press("Tab");
 
-        logger.info(`Date and time entered: ${value}`);
+            const value = await locator.inputValue();
 
-    } catch (error) {
-        logger.error(`Failed to set date and time: ${error}`);
-        throw error;
+            logger.info(`Date and time entered: ${value}`);
+
+        } catch (error) {
+            logger.error(`Failed to set date and time: ${error}`);
+            throw error;
+        }
     }
-}
+
 }

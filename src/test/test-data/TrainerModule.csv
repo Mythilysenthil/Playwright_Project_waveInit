@@ -1,0 +1,2 @@
+title,description,summary
+Test Automation & Pytest Basics,An introductory guide to setting up automation test suites and managing test execution flow,In this module you will learn:1. Installing pytest and setting up virtual environments. 2. Writing basic test functions and using test naming conventions. 3. Running tests via command line with flags like -v -s and -k. 4. Understanding test output and reporting basic failures.

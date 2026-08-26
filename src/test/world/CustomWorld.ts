@@ -7,10 +7,11 @@ import { SignINPage } from '../pages/SignINPage';
 import { RegisterPage } from '../pages/RegisterPage';
 import { part_prof_mgmt_page } from '../pages/part_prof_mgmt_page';
 import { AdminPage } from '../pages/AdminPage';
+import { TrainerModulepage } from '../pages/trainerModulePage';
+import { transports } from 'winston';
 import { MyCoursePage } from '../pages/MyCoursePage';
 import { DashboardPage } from '../pages/DashboardPage';
 import { TrainigProgramPage } from '../pages/TrainingProgramPage';
-
 
 export class CustomWorld extends World{
     browser!:Browser;
@@ -23,7 +24,10 @@ export class CustomWorld extends World{
     rp!:RegisterPage;
     ppm!:part_prof_mgmt_page;
     skillCountBeforeAction!: number;
+    educationCountBeforeAction!: number;
+    activeProfileDialog?: 'skill' | 'education';
     ap!:AdminPage;
+    tmp!:TrainerModulepage;
     mp!:MyCoursePage;
     dp!:DashboardPage;
     tp!:TrainigProgramPage;
