@@ -208,10 +208,10 @@ When('the user clicks the Cancel Social Links button', async function (this: Cus
 
 Then('the Social Links should be added successfully', async function (this: CustomWorld) {
   const expectedSocialLinks = socialLinksData[0]!;
-  const displayedSocialLinks = await this.ppm.getDisplayedSocialLinks();
 
-  expect(displayedSocialLinks.linkedin).toBe(expectedSocialLinks.linkedin);
-  expect(displayedSocialLinks.github).toBe(expectedSocialLinks.github);
+  // Saving causes the profile section to re-render asynchronously; assert the
+  // persisted values rather than the previous values still shown during refresh.
+  await expect.poll(() => this.ppm.getDisplayedSocialLinks()).toEqual(expectedSocialLinks);
 });
 
 Then('the Social Links should not be updated', async function (this: CustomWorld) {

@@ -99,13 +99,13 @@ export class part_prof_mgmt_page extends BasePage {
 
         this.SocialLinksEditBtn = this.page.locator("//div[text()='Social Links']/following::button[text()=' Edit'][1]");
 
-        this.linkedinInput = this.page.locator("//div[@class='pfd-body']/descendant::input[1]");
+        this.linkedinInput = this.page.locator(".pfd-body:visible input").nth(0);
 
-        this.githubInput = this.page.locator("//div[@class='pfd-body']/descendant::input[2]");
+        this.githubInput = this.page.locator(".pfd-body:visible input").nth(1);
 
-        this.saveSocialLinksBtn = this.page.locator("//div[@class='pfd-footer']/child::button[2]");
+        this.saveSocialLinksBtn = this.page.locator(".pfd-footer:visible > button.pfd-btn-primary");
 
-        this.cancelSocialLinksBtn = this.page.locator("//div[@class='pfd-footer']/child::button[1]");
+        this.cancelSocialLinksBtn = this.page.locator(".pfd-footer:visible > button:first-child");
 
         this.assertLinkedinText = this.page.locator("//div[text()='LinkedIn']/following::a[1]");
 
