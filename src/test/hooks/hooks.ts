@@ -10,6 +10,7 @@ import { AdminPage } from '../pages/AdminPage'
 import { part_prof_mgmt_page } from '../pages/part_prof_mgmt_page'
 import { MyCoursePage } from '../pages/MyCoursePage'
 import { DashboardPage } from '../pages/DashboardPage'
+import { TrainigProgramPage } from '../pages/TrainingProgramPage'
 
 
 let browser : Browser
@@ -33,6 +34,7 @@ Before(async function(this:CustomWorld,scenario){
     this.ppm=new part_prof_mgmt_page(this.page);
     this.mp=new MyCoursePage(this.page);
     this.dp=new DashboardPage(this.page);
+    this.tp=new TrainigProgramPage(this.page);
 })
 
 After(async function(this:CustomWorld,scenario){
