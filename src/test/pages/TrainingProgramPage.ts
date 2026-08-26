@@ -1,7 +1,7 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./BasePage";
 
-export class TrainingProgramPage extends BasePage{
+export class TrainigProgramPage extends BasePage{
     readonly createTraining:Locator;
     readonly trainingTitle:Locator;
     readonly description:Locator

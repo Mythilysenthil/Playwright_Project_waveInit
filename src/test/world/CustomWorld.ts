@@ -7,7 +7,13 @@ import { SignINPage } from '../pages/SignINPage';
 import { RegisterPage } from '../pages/RegisterPage';
 import { part_prof_mgmt_page } from '../pages/part_prof_mgmt_page';
 import { AdminPage } from '../pages/AdminPage';
-import { TrainingProgramPage } from '../pages/TrainingProgramPage';
+import { TrainerModulepage } from '../pages/trainerModulePage';
+import { transports } from 'winston';
+import { MyCoursePage } from '../pages/MyCoursePage';
+import { DashboardPage } from '../pages/DashboardPage';
+import { TrainigProgramPage } from '../pages/TrainingProgramPage';
+import { AIAssistantPage } from '../pages/AIAssistantPage';
+import { CoursePage } from '../pages/CoursePage';
 
 export class CustomWorld extends World{
     browser!:Browser;
@@ -20,8 +26,15 @@ export class CustomWorld extends World{
     rp!:RegisterPage;
     ppm!:part_prof_mgmt_page;
     skillCountBeforeAction!: number;
+    educationCountBeforeAction!: number;
+    activeProfileDialog?: 'skill' | 'education';
     ap!:AdminPage;
-    tp!:TrainingProgramPage;
+    tmp!:TrainerModulepage;
+    mp!:MyCoursePage;
+    dp!:DashboardPage;
+    tp!:TrainigProgramPage;
+    ai!:AIAssistantPage;
+    cp!:CoursePage;
 }
 
 setWorldConstructor(CustomWorld);
