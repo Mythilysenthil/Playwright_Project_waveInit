@@ -17,7 +17,6 @@ export class TrainigProgramPage extends BasePage{
     readonly noCourseFound:Locator;
     readonly viewDetails:Locator;
     readonly trainingDetails:Locator;
-
     constructor(page:Page){
         super(page);
         this.createTraining=this.page.locator("//button[@class='reg-admin-btn reg-admin-btn--primary']")

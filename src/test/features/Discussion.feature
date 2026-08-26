@@ -20,7 +20,6 @@ Feature: Discussion Feature
             | option      |
             | Normal Post |
             | Question    |
-
     Scenario: Post the discussion with an empty question and without selecting a post type
         When Click my discussion
         And click Post
@@ -34,4 +33,3 @@ Feature: Discussion Feature
             | option |
             | Discussion |
             | Question |
-

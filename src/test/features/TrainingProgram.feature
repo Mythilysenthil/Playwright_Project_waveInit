@@ -31,7 +31,7 @@ Feature: Subathra_Admin_Login_Feature_25/08/2026
             |                     | 2026-08-27T10:00 | 2026-08-30T17:00 | Please fill out this field. |
             | Playwright Training |                  | 2026-08-30T17:00 | Please fill out this field. |
             | Playwright Training | 2026-08-27T10:00 |                  | Please fill out this field. |
-            
+
     Scenario: Admin cannot create training program without trainer
         When the user clicks the Add Training button
         And the user enters the training title
@@ -39,3 +39,24 @@ Feature: Subathra_Admin_Login_Feature_25/08/2026
         And the user sets the start and end dates
         And the user clicks the Create Training Session button
         Then the user should see the trainer validation message "Trainer ID or Trainer IDs is required"
+    @Course
+    Scenario: Search the course by valid title
+        When The user enters the valid search title
+        Then Only valid courses should be shown
+    @Course
+    Scenario: Search the course by trainer
+        When The user enters the valid trainer name
+        Then Only courses associated with the trainer should be shown
+    @Course
+    Scenario: Search the course by invalid title
+        When The user enters an invalid search title
+        Then No courses should be shown
+    @Course
+    Scenario: Search the course by invalid trainer
+        When The user enters an invalid trainer name
+        Then No courses should be shown
+    Scenario: View details of the course
+        When The user enters the valid search title
+        And click view details of the searched course
+        Then show details of the course
+
