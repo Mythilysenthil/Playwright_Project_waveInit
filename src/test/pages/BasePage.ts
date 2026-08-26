@@ -127,4 +127,5 @@ export class BasePage {
             throw error;
         }
     }
+
 }
