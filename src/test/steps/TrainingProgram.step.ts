@@ -145,3 +145,67 @@ Then('show details of the course', async function (this:CustomWorld) {
   // Write code here that turns the phrase above into concrete actions
   await expect(this.tp.trainingDetails).toContainText("Training Details")
 });
+When('the user clicks the {string} training filter',async function (this: CustomWorld, filter: string) {
+
+        switch (filter) {
+            case "Active":
+                await this.tp.clickActive();
+                break;
+
+            case "Upcoming":
+                await this.tp.clickUpcoming();
+                break;
+
+            case "Completed":
+                await this.tp.clickCompleted();
+                break;
+
+            default:
+                throw new Error(`Invalid training filter: ${filter}`);
+        }
+    }
+);
+
+
+Then('only {string} training programs should be displayed',async function (this: CustomWorld, expectedStatus: string) {
+  if (expectedStatus === "Active") {
+            // All filter can contain Active, Upcoming and Completed
+            const statuses = await this.tp.getAllStatuses();
+
+            expect(statuses.length).toBeGreaterThan(0);
+            return;
+        }
+        const statuses = await this.tp.getAllStatuses();
+        expect(statuses.length).toBeGreaterThan(0);
+
+        for (const status of statuses) {
+            expect(status.trim().toUpperCase())
+                .toBe(expectedStatus.toUpperCase());
+        }
+    }
+);
+When('the user clicks the edit training button', async function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+  await this.tp.clickEdit();
+});
+
+When('the user clicks the Update Training Session button', async function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+  await this.tp.clickSaveButton();
+});
+
+Then('the user should see the training session updated successfully', async function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+  await expect(this.tp.trainingUpdated).toBeVisible();
+
+});
+
+When('the user clicks the leaderboard button', async function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+  await this.tp.clickLeaderBoard();
+});
+
+Then('the user should see the training leaderboard', async function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+  await expect(this.tp.leaderBoard).toBeVisible();
+});
