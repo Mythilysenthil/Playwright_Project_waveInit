@@ -69,3 +69,55 @@ Background:
      And clicks the cancel button
      Then the Education details should not be removed from the profile    
 
+   Scenario: User edits the Education details in the profile
+    Given the user is on the profile management page
+    When the user clicks the edit button
+    And update the Education details with the following data
+      | institution    | degree | Field_of_study | Year_range | CGPA |
+      | KIOT           | B.E    | CSE            | 2021-2025 | 9.25 |
+    And clicks the Save button
+   Then the Education details should be updated in the profile successfully
+
+   Scenario: User cancels editing the Education details in the profile
+    Given the user is on the profile management page
+    When the user clicks the edit button
+    And update the Education details with the following data
+      | institution       | degree | Field_of_study | Year_range | CGPA |
+      | KIOT Cancelled    | M.E    | ECE            | 2022-2026 | 9.50 |
+    And clicks the cancel button
+    Then the Education details should not be updated in the profile
+
+   Scenario: User adds Social Links successfully
+    Given the user is on the profile management page
+    When the user clicks the Social Links edit button
+    And the user enters the Social Links details
+    And the user clicks the Save Social Links button
+    Then the Social Links should be added successfully
+
+   Scenario: User cancels the Social Links update process
+    Given the user is on the profile management page
+    When the user clicks the Social Links edit button
+    And the user enters different Social Links details
+    And the user clicks the Cancel Social Links button
+    Then the Social Links should not be updated
+   
+   Scenario: User Edit personal Information successfully
+    Given the user is on the profile management page
+    When the user clicks the Edit button
+    And the user enters the personal information details
+    And the user clicks the Save personal information button
+    Then the personal information should be updated successfully
+
+   Scenario: User cancels the personal information update process
+    Given the user is on the profile management page  
+    When the user clicks the Edit button
+    And the user enters different personal information details
+    And the user clicks the Cancel personal information button
+    Then the personal information should not be updated 
+
+   Scenario: User Edit personal Information with Empty name 
+    Given the user is on the profile management page  
+    When the user clicks the Edit button
+    And the user Leaves the name field empty
+    And the user clicks the Save personal information button
+    Then the user should see a validation message 
