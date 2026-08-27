@@ -5,6 +5,8 @@ import { LearnerEducation } from '../types/LearnerEducation.types';
 import { CsvReader } from '../utilities/csvReader';
 import { ExcelReader } from '../utilities/ExcelReader';
 import { SocialLinks } from '../types/SocialLinks.types';
+import { PersonalInformation } from '../types/PersonalInformation.types';
+import personalInformationFixture from '../test-data/Participant_PersonalDetails.json';
 
 const temporaryUser = {
   email: 'kp@gmail.com',
@@ -18,6 +20,20 @@ const cancelledSocialLinks: SocialLinks = {
   github: 'https://github.com/cancelled-playwright-profile'
 };
 let socialLinksBeforeEdit: SocialLinks | undefined;
+let personalInformationBeforeEdit: PersonalInformation | undefined;
+let updatedPersonalInformation: PersonalInformation | undefined;
+let skillCountBeforeAction = 0;
+let educationCountBeforeAction = 0;
+let activeProfileDialog: 'skill' | 'education' | undefined;
+let originalEducation: LearnerEducation | undefined;
+let updatedEducation: LearnerEducation | undefined;
+const personalInformationData: PersonalInformation = personalInformationFixture.data;
+const cancelledPersonalInformation: PersonalInformation = {
+  fullname: 'Cancelled Test User',
+  phone: '9876543210',
+  department: 'Quality Assurance',
+  designation: 'Test Engineer'
+};
 
 /** Reusable temporary-user sign-in for the profile-management scenarios. */
 async function signInForProfileManagement(world: CustomWorld): Promise<void> {
@@ -31,8 +47,8 @@ Given('the user is on the profile management page', async function (this: Custom
 });
 
 When('the user clicks the add skill button', async function (this: CustomWorld) {
-  this.skillCountBeforeAction = await this.ppm.getSkillCount();
-  this.activeProfileDialog = 'skill';
+  skillCountBeforeAction = await this.ppm.getSkillCount();
+  activeProfileDialog = 'skill';
   await this.ppm.clickAddSkill();
 });
 
@@ -49,18 +65,18 @@ When('clicks the Add skill button', async function (this: CustomWorld) {
 });
 
 Then('the skill should be added to the profile successfully', async function (this: CustomWorld) {
-  await expect.poll(() => this.ppm.getSkillCount()).toBeGreaterThan(this.skillCountBeforeAction);
+  await expect.poll(() => this.ppm.getSkillCount()).toBeGreaterThan(skillCountBeforeAction);
 });
 
 When('the user deletes the skill by clicking the delete button next to the skill', async function (this: CustomWorld) {
-  this.skillCountBeforeAction = await this.ppm.getSkillCount();
-  expect(this.skillCountBeforeAction).toBeGreaterThan(0);
-  this.activeProfileDialog = 'skill';
+  skillCountBeforeAction = await this.ppm.getSkillCount();
+  expect(skillCountBeforeAction).toBeGreaterThan(0);
+  activeProfileDialog = 'skill';
   await this.ppm.deleteFirstSkill();
 });
 
 When('the user confirms the deletion', async function (this: CustomWorld) {
-  if (this.activeProfileDialog === 'education') {
+  if (activeProfileDialog === 'education') {
     await this.ppm.confirmEducationDeletion();
   } else {
     await this.ppm.confirmSkillDeletion();
@@ -68,12 +84,12 @@ When('the user confirms the deletion', async function (this: CustomWorld) {
 });
 
 Then('the skill should be removed from the profile successfully', async function (this: CustomWorld) {
-  await expect.poll(() => this.ppm.getSkillCount()).toBeLessThan(this.skillCountBeforeAction);
+  await expect.poll(() => this.ppm.getSkillCount()).toBeLessThan(skillCountBeforeAction);
 });
 
 When('clicks the cancel button', async function (this: CustomWorld) {
   // Both dialogs expose the same cancel action; choose the semantic page-object locator.
-  if (this.activeProfileDialog === 'education') {
+  if (activeProfileDialog === 'education') {
     await this.ppm.cancelEducationBtn.click();
   } else {
     await this.ppm.cancelSkillDialog();
@@ -81,16 +97,16 @@ When('clicks the cancel button', async function (this: CustomWorld) {
 });
 
 Then('the skill should not be added to the profile', async function (this: CustomWorld) {
-  await expect.poll(() => this.ppm.getSkillCount()).toBe(this.skillCountBeforeAction);
+  await expect.poll(() => this.ppm.getSkillCount()).toBe(skillCountBeforeAction);
 });
 
 Then('the skill should not be removed from the profile', async function (this: CustomWorld) {
-  await expect.poll(() => this.ppm.getSkillCount()).toBe(this.skillCountBeforeAction);
+  await expect.poll(() => this.ppm.getSkillCount()).toBe(skillCountBeforeAction);
 });
 
 When('the user clicks the add Education button', async function (this: CustomWorld) {
-  this.educationCountBeforeAction = await this.ppm.getEducationCount();
-  this.activeProfileDialog = 'education';
+  educationCountBeforeAction = await this.ppm.getEducationCount();
+  activeProfileDialog = 'education';
   await this.ppm.clickAddEducation();
 });
 
@@ -103,11 +119,11 @@ When('clicks the Add Education button', async function (this: CustomWorld) {
 });
 
 Then('the Education details should be added to the profile successfully', async function (this: CustomWorld) {
-  await expect.poll(() => this.ppm.getEducationCount()).toBeGreaterThan(this.educationCountBeforeAction);
+  await expect.poll(() => this.ppm.getEducationCount()).toBeGreaterThan(educationCountBeforeAction);
 });
 
 Then('the Education details should not be added to the profile', async function (this: CustomWorld) {
-  await expect.poll(() => this.ppm.getEducationCount()).toBe(this.educationCountBeforeAction);
+  await expect.poll(() => this.ppm.getEducationCount()).toBe(educationCountBeforeAction);
 });
 
 When('clicks the Add Education button without entering any details', async function (this: CustomWorld) {
@@ -120,27 +136,27 @@ Then('the user should see a validation message', async function (this: CustomWor
 });
 
 When('the user deletes the Education details by clicking the delete button next to the Education details', async function (this: CustomWorld) {
-  this.educationCountBeforeAction = await this.ppm.getEducationCount();
+  educationCountBeforeAction = await this.ppm.getEducationCount();
 
   // Deletion scenarios must be self-contained when no education record exists yet.
-  if (this.educationCountBeforeAction === 0) {
+  if (educationCountBeforeAction === 0) {
     await this.ppm.clickAddEducation();
     await this.ppm.enterEducationDetails(educationData[0]!);
     await this.ppm.confirmAddEducation();
     await expect.poll(() => this.ppm.getEducationCount()).toBeGreaterThan(0);
-    this.educationCountBeforeAction = await this.ppm.getEducationCount();
+    educationCountBeforeAction = await this.ppm.getEducationCount();
   }
 
-  this.activeProfileDialog = 'education';
+  activeProfileDialog = 'education';
   await this.ppm.deleteFirstEducation();
 });
 
 Then('the Education details should be removed from the profile successfully', async function (this: CustomWorld) {
-  await expect.poll(() => this.ppm.getEducationCount()).toBeLessThan(this.educationCountBeforeAction);
+  await expect.poll(() => this.ppm.getEducationCount()).toBeLessThan(educationCountBeforeAction);
 });
 
 Then('the Education details should not be removed from the profile', async function (this: CustomWorld) {
-  await expect.poll(() => this.ppm.getEducationCount()).toBe(this.educationCountBeforeAction);
+  await expect.poll(() => this.ppm.getEducationCount()).toBe(educationCountBeforeAction);
 });
 
 When('the user clicks the edit button', async function (this: CustomWorld) {
@@ -152,22 +168,22 @@ When('the user clicks the edit button', async function (this: CustomWorld) {
     await expect.poll(() => this.ppm.getEducationCount()).toBeGreaterThan(0);
   }
 
-  this.activeProfileDialog = 'education';
+  activeProfileDialog = 'education';
   await this.ppm.editFirstEducation();
-  this.originalEducation = await this.ppm.getEducationDetailsFromForm();
+  originalEducation = await this.ppm.getEducationDetailsFromForm();
 });
 
 When('update the Education details with the following data', async function (this: CustomWorld, dataTable: DataTable) {
   const education = dataTable.hashes()[0];
   expect(education, 'The education data table must include one row of data.').toBeDefined();
-  this.updatedEducation = {
+  updatedEducation = {
     institution: education?.institution ?? '',
     degree: education?.degree ?? '',
     Field_of_study: education?.Field_of_study ?? '',
     Year_range: education?.Year_range ?? '',
     CGPA: education?.CGPA ?? ''
   };
-  await this.ppm.enterEducationDetails(this.updatedEducation);
+  await this.ppm.enterEducationDetails(updatedEducation);
 });
 
 When('clicks the Save button', async function (this: CustomWorld) {
@@ -175,13 +191,15 @@ When('clicks the Save button', async function (this: CustomWorld) {
 });
 
 Then('the Education details should be updated in the profile successfully', async function (this: CustomWorld) {
-  await expect.poll(() => this.ppm.areEducationDetailsVisible(this.updatedEducation)).toBe(true);
+  expect(updatedEducation, 'Education details must be entered before saving.').toBeDefined();
+  await expect.poll(() => this.ppm.areEducationDetailsVisible(updatedEducation!)).toBe(true);
 });
 
 Then('the Education details should not be updated in the profile', async function (this: CustomWorld) {
   // Re-open the record after cancelling to verify the persisted values, not just that the dialog closed.
+  expect(originalEducation, 'Education details must be captured before cancelling.').toBeDefined();
   await this.ppm.editFirstEducation();
-  await expect.poll(() => this.ppm.getEducationDetailsFromForm()).toEqual(this.originalEducation);
+  await expect.poll(() => this.ppm.getEducationDetailsFromForm()).toEqual(originalEducation);
   await this.ppm.cancelEducationEdit();
 });
 
@@ -217,4 +235,49 @@ Then('the Social Links should be added successfully', async function (this: Cust
 Then('the Social Links should not be updated', async function (this: CustomWorld) {
   expect(socialLinksBeforeEdit, 'Social Links must be captured before cancelling the edit.').toBeDefined();
   await expect.poll(() => this.ppm.getDisplayedSocialLinks()).toEqual(socialLinksBeforeEdit);
+});
+
+When('the user clicks the Edit button', async function (this: CustomWorld) {
+  await this.ppm.clickPersonalInformationEdit();
+  personalInformationBeforeEdit = await this.ppm.getPersonalInformationFromForm();
+});
+
+When('the user enters the personal information details', async function (this: CustomWorld) {
+  updatedPersonalInformation = personalInformationData;
+  await this.ppm.enterPersonalInformation(personalInformationData);
+});
+
+When('the user enters different personal information details', async function (this: CustomWorld) {
+  updatedPersonalInformation = cancelledPersonalInformation;
+  await this.ppm.enterPersonalInformation(cancelledPersonalInformation);
+});
+
+When('the user clicks the Save personal information button', async function (this: CustomWorld) {
+  await this.ppm.savePersonalInformation();
+});
+
+When('the user clicks the Cancel personal information button', async function (this: CustomWorld) {
+  await this.ppm.cancelPersonalInformation();
+});
+
+Then('the personal information should be updated successfully', async function (this: CustomWorld) {
+  expect(updatedPersonalInformation, 'Personal information must be entered before saving.').toBeDefined();
+  await this.ppm.clickPersonalInformationEdit();
+  await expect.poll(() => this.ppm.getPersonalInformationFromForm()).toEqual(updatedPersonalInformation);
+  await this.ppm.cancelPersonalInformation();
+});
+
+Then('the personal information should not be updated', async function (this: CustomWorld) {
+  expect(personalInformationBeforeEdit, 'Personal information must be captured before cancelling.').toBeDefined();
+  await this.ppm.clickPersonalInformationEdit();
+  await expect.poll(() => this.ppm.getPersonalInformationFromForm()).toEqual(personalInformationBeforeEdit);
+  await this.ppm.cancelPersonalInformation();
+});
+
+When("the user Leaves the name field empty", async function () {
+  await this.profileManagementPage.leaveNameFieldEmpty();
+});
+
+Then("the user should see a validation message", async function () {
+  await this.profileManagementPage.verifyNameRequiredMessage();
 });

@@ -13,7 +13,6 @@ import { MyCoursePage } from '../pages/MyCoursePage';
 import { DashboardPage } from '../pages/DashboardPage';
 import { TrainigProgramPage } from '../pages/TrainingProgramPage';
 import { AIAssistantPage } from '../pages/AIAssistantPage';
-import { LearnerEducation } from '../types/LearnerEducation.types';
 import { CoursePage } from '../pages/CoursePage';
 
 export class CustomWorld extends World{
@@ -26,11 +25,6 @@ export class CustomWorld extends World{
     sp!:SignINPage;
     rp!:RegisterPage;
     ppm!:part_prof_mgmt_page;
-    skillCountBeforeAction!: number;
-    educationCountBeforeAction!: number;
-    originalEducation!: LearnerEducation;
-    updatedEducation!: LearnerEducation;
-    activeProfileDialog?: 'skill' | 'education';
     ap!:AdminPage;
     tmp!:TrainerModulepage;
     mp!:MyCoursePage;

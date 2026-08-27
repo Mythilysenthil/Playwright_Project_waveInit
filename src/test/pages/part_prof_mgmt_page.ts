@@ -1,7 +1,8 @@
-import { Locator, Page } from "@playwright/test";
+import { Locator, Page,expect } from "@playwright/test";
 import { BasePage } from "./BasePage";
 import { LearnerEducation } from "../types/LearnerEducation.types";
 import { SocialLinks } from "../types/SocialLinks.types";
+import { PersonalInformation } from "../types/PersonalInformation.types";
 
 export class part_prof_mgmt_page extends BasePage {
     readonly learner_btn: Locator;
@@ -37,6 +38,14 @@ export class part_prof_mgmt_page extends BasePage {
     readonly cancelSocialLinksBtn: Locator;
     readonly assertLinkedinText: Locator;
     readonly assertGithubText: Locator;
+    readonly personalInfoEditBtn: Locator;
+    readonly fullNameInput: Locator
+    readonly phoneNumberInput: Locator;
+    readonly DepartmentInput: Locator;
+    readonly DesignationInput: Locator;
+    readonly SavepersonalInfoBtn: Locator;
+    readonly CancelpersonalInfoBtn: Locator;
+    readonly PersonalDetailsNameFieldEmptyMsg: Locator;
     
 
     constructor(public page: Page) {
@@ -111,7 +120,32 @@ export class part_prof_mgmt_page extends BasePage {
 
         this.assertGithubText = this.page.locator("//div[text()='GitHub']/following::a[1]");
 
+        this.personalInfoEditBtn = this.page.locator("//div[text()='Personal Information']/following::button[text()=' Edit'][1]");
+
+        // The personal-information dialog contains email between the name and phone fields.
+        // Scope to the visible dialog so similarly structured dialogs cannot be matched.
+        this.fullNameInput = this.page.locator(".pfd-body:visible input").nth(0);
+
+        this.phoneNumberInput = this.page.locator(".pfd-body:visible input").nth(3);
+
+        this.DepartmentInput = this.page.locator(".pfd-body:visible input").nth(4);
+
+        this.DesignationInput = this.page.locator(".pfd-body:visible input").nth(5);
+
+        this.SavepersonalInfoBtn = this.page.locator(".pfd-footer:visible > button.pfd-btn-primary");
+
+        this.CancelpersonalInfoBtn = this.page.locator(".pfd-footer:visible > button:first-child");
+
+        this.PersonalDetailsNameFieldEmptyMsg = this.page.locator("//div[text()='Full name is required.']");
+
     }
+
+    async leaveNameFieldEmpty(): Promise<void> {
+        await this.fullNameInput.fill("");
+}
+    async verifyNameRequiredMessage(): Promise<void> {
+  await expect(this.PersonalDetailsNameFieldEmptyMsg).toBeVisible();
+}
 
     async signIn(email: string, password: string): Promise<void> {
         await this.learner_btn.click();
@@ -264,5 +298,33 @@ export class part_prof_mgmt_page extends BasePage {
 
     async confirmEducationDeletion(): Promise<void> {
         await this.DeleteEducationConfirmBtn.click();
+    }
+
+    async clickPersonalInformationEdit(): Promise<void> {
+        await this.personalInfoEditBtn.click();
+    }
+
+    async enterPersonalInformation(personalInformation: PersonalInformation): Promise<void> {
+        await this.fullNameInput.fill(personalInformation.fullname);
+        await this.phoneNumberInput.fill(personalInformation.phone);
+        await this.DepartmentInput.fill(personalInformation.department);
+        await this.DesignationInput.fill(personalInformation.designation);
+    }
+
+    async getPersonalInformationFromForm(): Promise<PersonalInformation> {
+        return {
+            fullname: await this.fullNameInput.inputValue(),
+            phone: await this.phoneNumberInput.inputValue(),
+            department: await this.DepartmentInput.inputValue(),
+            designation: await this.DesignationInput.inputValue()
+        };
+    }
+
+    async savePersonalInformation(): Promise<void> {
+        await this.SavepersonalInfoBtn.click();
+    }
+
+    async cancelPersonalInformation(): Promise<void> {
+        await this.CancelpersonalInfoBtn.click();
     }
 }

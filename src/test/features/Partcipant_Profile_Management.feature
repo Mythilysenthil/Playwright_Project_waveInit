@@ -100,4 +100,24 @@ Background:
     And the user enters different Social Links details
     And the user clicks the Cancel Social Links button
     Then the Social Links should not be updated
+   
+   Scenario: User Edit personal Information successfully
+    Given the user is on the profile management page
+    When the user clicks the Edit button
+    And the user enters the personal information details
+    And the user clicks the Save personal information button
+    Then the personal information should be updated successfully
 
+   Scenario: User cancels the personal information update process
+    Given the user is on the profile management page  
+    When the user clicks the Edit button
+    And the user enters different personal information details
+    And the user clicks the Cancel personal information button
+    Then the personal information should not be updated 
+
+   Scenario: User Edit personal Information with Empty name 
+    Given the user is on the profile management page  
+    When the user clicks the Edit button
+    And the user Leaves the name field empty
+    And the user clicks the Save personal information button
+    Then the user should see a validation message 
