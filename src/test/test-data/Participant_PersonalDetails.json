@@ -1,0 +1,8 @@
+{
+    "data":{
+        "fullname":"Test User",
+        "phone":"1234567890",
+        "department":"Engineering",
+        "designation":"Software Engineer"
+    }
+}

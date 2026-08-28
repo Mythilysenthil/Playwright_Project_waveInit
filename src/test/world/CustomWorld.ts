@@ -15,6 +15,8 @@ import { TrainigProgramPage } from '../pages/TrainingProgramPage';
 import { AIAssistantPage } from '../pages/AIAssistantPage';
 import { CoursePage } from '../pages/CoursePage';
 import { TrainerCodeAssessmentpage } from '../pages/trainerCodeAssessmentPage';
+import { TrainerPage } from '../pages/TrainerPage';
+import { ParticipantPage } from '../pages/ParticipantPage';
 
 export class CustomWorld extends World{
     browser!:Browser;
@@ -26,9 +28,6 @@ export class CustomWorld extends World{
     sp!:SignINPage;
     rp!:RegisterPage;
     ppm!:part_prof_mgmt_page;
-    skillCountBeforeAction!: number;
-    educationCountBeforeAction!: number;
-    activeProfileDialog?: 'skill' | 'education';
     ap!:AdminPage;
     tmp!:TrainerModulepage;
     mp!:MyCoursePage;
@@ -37,6 +36,8 @@ export class CustomWorld extends World{
     ai!:AIAssistantPage;
     cp!:CoursePage;
     tca!:TrainerCodeAssessmentpage;
+    t!:TrainerPage;
+    pp!:ParticipantPage
 }
 
 setWorldConstructor(CustomWorld);

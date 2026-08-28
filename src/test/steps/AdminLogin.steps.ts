@@ -47,13 +47,7 @@ Then('the user should see the {string}', async function (this: CustomWorld, expe
             message = await this.sp.adminPassowrd.evaluate(
                 element => (element as HTMLInputElement).validationMessage
             );
-          }
-          if (!message) {
-                message = await this.rp.PasswordInput.evaluate(
-                    element =>
-                        (element as HTMLInputElement).validationMessage
-                );
-            }
+        }
 
         expect(message).toBe(expectedMessage);
 
