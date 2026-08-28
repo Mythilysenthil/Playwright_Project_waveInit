@@ -16,8 +16,10 @@ export class AdminPage extends BasePage{
     readonly emailRequired:Locator;
     readonly passwordRequired:Locator;
     readonly passwordNotMatch:Locator;
+    readonly participantModule:Locator;
     constructor(page:Page){
         super(page);
+        this.participantModule=this.page.locator("//span[normalize-space()='Participants']")
         this.adminPortal=this.page.locator("//div[@class='wl-sidebar-tagline']");
         this.TrainigProgram=this.page.locator("//span[normalize-space()='Training Programs']")
         this.trainers=this.page.locator("//span[normalize-space()='Trainers']")
@@ -41,6 +43,9 @@ export class AdminPage extends BasePage{
     }
     async clickAddTrainer(){
         await this.Click(this.addTrainers)
+    }
+    async clickParticipantModule(){
+        await this.Click(this.participantModule)
     }
     async setName(name:string){
         await this.TypeText(this.fullName,name)
