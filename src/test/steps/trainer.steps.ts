@@ -1,6 +1,7 @@
+import { CustomWorld } from './../world/CustomWorld';
 import { Given, When, Then, DataTable } from '@cucumber/cucumber';
-import { CustomWorld } from '../world/CustomWorld';
 import { expect } from '@playwright/test';
+import TrainerData from '../test-data/TrainerData.json'
 When('click trainer module', async function (this:CustomWorld) {
   // Write code here that turns the phrase above into concrete actions
   await this.ap.clickTrainers();
@@ -80,3 +81,63 @@ Then('the trainer should see the validation message {string}',async function (th
         }
     }
 );
+When('the user enters the valid trainer name {string}', async function (this:CustomWorld,string) {
+  // Write code here that turns the phrase above into concrete actions
+  await this.t.setName(string)
+});
+
+Then('only the trainer {string} should be shown',async function (this: CustomWorld, trainerName: string) {
+
+        const trainers: string[] = await this.t.getTrainerNames();
+
+        expect(trainers.length).toBeGreaterThan(0);
+
+        for (const trainer of trainers) {
+            expect(trainer.trim()).toContain(trainerName.trim());
+        }
+    }
+);
+When('the user enters the following invalid trainer name:',async function (this: CustomWorld, dataTable) {
+
+        const trainers = dataTable.hashes();
+
+        await this.t.setName(trainers[0].TrainerName);
+    }
+);
+Then('no trainers should be shown', async function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+  await expect(this.t.noTrainerFound).toContainText("No Trainers Found")
+});
+
+When('the user searches for the trainer', async  function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+   await this.t.setName(TrainerData.searchAndDeleteTrainer.trainerName)
+});
+
+When('the user clicks the delete trainer button', async  function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+   await this.t.clickDelete();
+});
+
+When('the user confirms the trainer deletion', async  function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+   await this.t.clickConfirmDelete();
+});
+
+Then('the trainer should be deleted successfully', async  function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+   await expect(this.t.trainerDeleted).toContainText("Trainer deleted successfully")
+});
+Then('the delete trainer button should not be displayed', async function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+    await expect(this.t.deleteButton).not.toBeVisible()
+});
+When('the user clicks the view trainer profile button', async  function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+  await this.t.clickViewDetails();
+});
+
+Then('the trainer profile should be displayed', async  function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+  await expect(this.t.viewProfile).toContainText("Trainer Profile")
+});

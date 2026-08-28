@@ -14,6 +14,7 @@ import { DashboardPage } from '../pages/DashboardPage';
 import { TrainigProgramPage } from '../pages/TrainingProgramPage';
 import { AIAssistantPage } from '../pages/AIAssistantPage';
 import { CoursePage } from '../pages/CoursePage';
+import { TrainerPage } from '../pages/TrainerPage';
 
 export class CustomWorld extends World{
     browser!:Browser;
@@ -32,6 +33,7 @@ export class CustomWorld extends World{
     tp!:TrainigProgramPage;
     ai!:AIAssistantPage;
     cp!:CoursePage;
+    t!:TrainerPage;
 }
 
 setWorldConstructor(CustomWorld);

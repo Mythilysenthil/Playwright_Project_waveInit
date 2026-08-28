@@ -27,3 +27,31 @@ Feature: TamilKumar 27-08-2026 Trainer feature
             | Tamil    |           | Test@1234 | Test@1234       | Enter a valid email address |
             | Tamil    | trainer02 |           | Test@1234       | Password is required        |
             | Tamil    | trainer02 | Test@1234 |                 | Password is required        |
+    Scenario Outline: Valid search of trainers
+        When the user enters the valid trainer name "<TrainerName>"
+        Then only the trainer "<TrainerName>" should be shown
+
+        Examples:
+            | TrainerName |
+            | Tamil Kumar |
+            | Subathra    |
+    Scenario: Invalid search of trainers
+        When the user enters the following invalid trainer names:
+            | TrainerName     |
+            | Invalid Trainer |
+        Then no trainers should be shown
+    Scenario: Search and delete trainer
+        When the user searches for the trainer
+        And the user clicks the delete trainer button
+        And the user confirms the trainer deletion
+        Then the trainer should be deleted successfully
+    Scenario: Cannot delete an invalid trainer
+        When the user enters the following invalid trainer names:
+            | TrainerName     |
+            | Invalid Trainer |
+        Then no trainers should be shown
+        And the delete trainer button should not be displayed
+    Scenario: View trainer profile
+        When the user searches for the trainer
+        And the user clicks the view trainer profile button
+        Then the trainer profile should be displayed
