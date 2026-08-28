@@ -60,10 +60,6 @@ Feature: Subathra_Admin_Login_Feature_25/08/2026
         When The user enters the valid search title
         And click view details of the searched course
         Then show details of the course
-    
-    Scenario Outline: Admin can filter training programs by status
-        When the user clicks the "<Status>" training filter
-        Then only "<Status>" training programs should be displayed
 
     Scenario Outline: Admin can filter training programs by status
         When the user clicks the "<Status>" training filter
