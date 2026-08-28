@@ -53,7 +53,7 @@ When('the user clicks the add skill button', async function (this: CustomWorld) 
 });
 
 When('enter the skill name', async function (this: CustomWorld) {
-  await this.ppm.enterSkillName(`Playwright skill ${Date.now()}`);
+  await this.ppm.enterSkillName();
 });
 
 When('enter the skill name by typing in the skill input field', async function (this: CustomWorld) {
