@@ -1,16 +1,16 @@
-@krishna
+   @krishna
 Feature: Profile Management Feature 24-06-2026_Krishnaprasath
 
 Background:
     Given the user launches the application
-    
+   
   Scenario: Add a skill to the profile
      Given the user is on the profile management page
      When the user clicks the add skill button
      And enter the skill name 
      And clicks the Add skill button
      Then the skill should be added to the profile successfully
-    
+   
   Scenario: Delete a skill from the profile
      Given the user is on the profile management page
      When the user deletes the skill by clicking the delete button next to the skill
@@ -28,8 +28,9 @@ Background:
      Given the user is on the profile management page
      When the user deletes the skill by clicking the delete button next to the skill
      And clicks the cancel button
-     Then the skill should not be removed from the profile   
+     Then the skill should not be removed from the profile  
 
+   @krishna
    Scenario: User add skill by entering text in the skill input field and pressing the Enter key
      Given the user is on the profile management page
      When the user clicks the add skill button

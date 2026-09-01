@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> b1d9c104db66aa572b2410c716a0fc7e28ab58e9
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./BasePage";
 
@@ -11,6 +14,10 @@ export class ParticipantPage extends BasePage {
     readonly addParticipant: Locator;
     readonly participantCreated: Locator;
     readonly accountAlreadyExist:Locator;
+<<<<<<< HEAD
+=======
+    
+>>>>>>> b1d9c104db66aa572b2410c716a0fc7e28ab58e9
     constructor(page: Page) {
         super(page);
         this.accountAlreadyExist=this.page.locator("//span[normalize-space()='An account with this email already exists.']")
@@ -87,4 +94,8 @@ export class ParticipantPage extends BasePage {
             element => (element as HTMLInputElement).validationMessage
         );
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> b1d9c104db66aa572b2410c716a0fc7e28ab58e9
