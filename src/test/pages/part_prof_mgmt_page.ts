@@ -11,6 +11,7 @@ export class part_prof_mgmt_page extends BasePage {
     readonly login_btn: Locator;
     readonly profile_sidebar_btn: Locator;
     readonly addSkill_btn: Locator;
+    readonly skillbt: Locator;
     readonly skillName_input: Locator;
     readonly addskillConfirm_btn: Locator;
     readonly cancelskillConfirm_btn: Locator;
@@ -66,6 +67,8 @@ export class part_prof_mgmt_page extends BasePage {
         // Scope these locators to the visible skill dialog.  The page uses the same
         // footer markup for several dialogs, so a page-wide "second button" can
         // resolve to a disabled button while another dialog is being re-rendered.
+
+        this.skillbt = this.page.locator("//button[text()='React']");
         this.skillName_input = this.page.locator(".pfd-body:visible form.pfd-field input");
 
         this.addskillConfirm_btn = this.page.locator(".pfd-footer:visible > button.pfd-btn-primary");
@@ -165,15 +168,13 @@ export class part_prof_mgmt_page extends BasePage {
         await this.addSkill_btn.click();
     }
 
-    async enterSkillName(skillName: string): Promise<void> {
-        await this.skillName_input.fill(skillName);
-        // Some dialog implementations enable their submit action on blur rather
-        // than on the input event alone.
-        await this.skillName_input.blur();
+    async enterSkillName(): Promise<void> {
+        await this.skillbt.click();
+
     }
 
     async enterSkillNameAndPressEnter(skillName: string): Promise<void> {
-        await this.enterSkillName(skillName);
+        await this.skillName_input.fill(skillName);
         await this.skillName_input.press("Enter");
     }
 

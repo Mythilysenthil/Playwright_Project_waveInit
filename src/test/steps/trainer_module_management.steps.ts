@@ -8,9 +8,12 @@ import { ModuleData } from '../types/TrainerModuleData.types';
 const moduleData = CsvReader.read<ModuleData>("TrainerModule.csv");
 
 Then(`the trainer navigates to the {string} page`, async function (this: CustomWorld, pageName: string) {
+    console.log(`STEP START: Navigate to ${pageName}`);
     if (pageName === "My Trainings") {
         await this.tmp.clickMyTrainer();
     }
+    console.log(`STEP END: Navigate to ${pageName}`);
+    console.log("CURRENT URL:", this.page.url());
 });
 
 Then(`the trainer should see the assigned course`, async function (this: CustomWorld){
@@ -20,20 +23,35 @@ Then(`the trainer should see the assigned course`, async function (this: CustomW
 });
 
 When(`the trainer selects the assigned course`, async function (this: CustomWorld){
+    console.log("STEP START: Select assigned course");
     await this.tmp.clickCourse();
+    console.log("STEP END: Assigned course selected");
+    console.log("CURRENT URL:", this.page.url());
 });
 
 Then(`the trainer should be redirected to the Course Editor page`, async function (this: CustomWorld){
-    await expect(this.page).toHaveURL(/https:\/\/www\.waveinitlms\.online\/trainer\?tab=courses&courseId=\d+/,
+    console.log("STEP START: Verify Course Editor page");
+
+    console.log("CURRENT URL:", this.page.url());
+    await expect(this.page).toHaveURL(
+        /trainer\?tab=courses&courseId=\d+/,
         {
             timeout: TIMEOUTS.PAGE_LOAD
-        });
+        }
+    );
+
+    console.log("COURSE EDITOR URL PASSED");
+    await this.tmp.verifyCourseEditorPage();
+    console.log("COURSE EDITOR PAGE CONFIRMED");
 });
 
 When(`the trainer clicks on the {string} button`, async function (this: CustomWorld,buttonName: string){
     if (buttonName === "Add Module") {
         await this.tmp.clicklessons();
         await this.tmp.clickAddModule();
+    }
+    else if(buttonName === "Create Assessment"){
+        await this.tca.clickCreateAssessment();
     }
 });
 

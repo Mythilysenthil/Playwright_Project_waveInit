@@ -128,4 +128,18 @@ export class BasePage {
         }
     }
 
+    async IsVisible(selector: Locator): Promise<boolean> {
+        try {
+            const visible = await selector.isVisible();
+
+            logger.info(`Element visibility: ${visible}`);
+
+            return visible;
+
+        } catch (error) {
+            logger.error(`Failed to check element visibility: ${error}`);
+            throw error;
+        }
+    }
+
 }

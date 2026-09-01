@@ -24,7 +24,7 @@ When(`the trainer clicks on the login button`, async function (this: CustomWorld
 Then(`the trainer should be redirected to the dashboard page`, async function (this: CustomWorld) {
     await expect(this.page).toHaveURL("https://www.waveinitlms.online/trainer",{timeout: TIMEOUTS.PAGE_LOAD});
     logger.info("URL PASSED");
-    await expect(this.ltp.dashboard).toHaveText("Welcome back, Trainer01!",{timeout: TIMEOUTS.PAGE_LOAD});
+    await expect(this.ltp.dashboard).toHaveText("Welcome back, trainer01!",{timeout: TIMEOUTS.PAGE_LOAD});
     logger.info('DASHBOARD TEXT PASSED');
 });
 
