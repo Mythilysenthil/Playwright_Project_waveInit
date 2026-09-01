@@ -24,6 +24,30 @@ Feature: Subathra 28-08-2026 Participant feature
             | Tamil |                      | Test@1234 | Please fill out this field. |
             | Tamil | participant@test.com |           | Please fill out this field. |
         
+    Scenario: Admin cannot add participant with already existing email
+        When the admin clicks the add participant button
+        And the user enters the participant details with an existing email
+        And click add participant button
+        Then the admin should see the email already exists message
+
+    Scenario: Verify admin can view all participants
+        Then all participants should be displayed
+
+    Scenario: Verify admin can view approved participants
+        When the admin clicks the Approved filter
+        Then only approved participants should be displayed
+
+    Scenario: Verify admin can view pending participants
+        When the admin clicks the Pending filter
+        Then only pending participants should be displayed
+
+    Scenario: Verify admin can view rejected participants
+        When the admin clicks the Rejected filter
+        Then only rejected participants should be displayed
+
+    Scenario: Verify admin can view participant profile
+        When the admin clicks the view participant profile button
+        Then the participant profile should be displayed
 Scenario: Admin cannot add participant with already existing email
     When the admin clicks the add participant button
     And the user enters the participant details with an existing email
