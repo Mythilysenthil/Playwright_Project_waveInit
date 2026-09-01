@@ -15,6 +15,7 @@ import { TrainigProgramPage } from '../pages/TrainingProgramPage'
 import { AIAssistantPage } from '../pages/AIAssistantPage'
 import { CoursePage } from '../pages/CoursePage'
 import { TrainerPage } from '../pages/TrainerPage'
+import { ParticipantPage } from '../pages/ParticipantPage'
 
 
 let browser : Browser
@@ -42,7 +43,8 @@ Before(async function(this:CustomWorld,scenario){
     this.tp=new TrainigProgramPage(this.page);
     this.ai=new AIAssistantPage(this.page);
     this.cp=new CoursePage(this.page);
-    this.t=new TrainerPage(this.page)
+    this.t=new TrainerPage(this.page);
+    this.pp=new ParticipantPage(this.page);
 })
 
 After(async function(this:CustomWorld,scenario){
