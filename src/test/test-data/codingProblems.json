@@ -1,0 +1,13 @@
+[
+  {
+    "title": "Reverse a String",
+    "description": "Write a program to reverse a given string without using a built-in reverse function.",
+    "difficulty": "Easy",
+    "marks": 10,
+    "memoryLimit": "128 MB",
+    "constraints": "1 <= length of string <= 1000",
+    "input": "A single string containing lowercase and uppercase English letters.",
+    "output": "Print the reversed string.",
+    "explanation": "Read the input string and reverse its characters using a loop."
+  }
+]
