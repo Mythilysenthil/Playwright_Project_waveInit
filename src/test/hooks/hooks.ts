@@ -17,6 +17,7 @@ import { CoursePage } from '../pages/CoursePage'
 import { TrainerCodeAssessmentpage } from '../pages/trainerCodeAssessmentPage'
 import { TrainerPage } from '../pages/TrainerPage'
 import { ParticipantPage } from '../pages/ParticipantPage'
+import { TrainerCoursePage } from '../pages/TrainerCoursePage'
 
 
 let browser : Browser
@@ -46,6 +47,7 @@ Before(async function(this:CustomWorld,scenario){
     this.cp=new CoursePage(this.page);
     this.t=new TrainerPage(this.page);
     this.pp=new ParticipantPage(this.page);
+    this.tcp=new TrainerCoursePage(this.page)
 })
 
 After(async function(this:CustomWorld,scenario){
