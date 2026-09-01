@@ -20,6 +20,7 @@ export class TrainerModulepage extends BasePage {
     readonly conformDelete: Locator;
     readonly welcomeTrainer: Locator;
     readonly courseEditorTabs: Locator;
+    readonly myTainingModule:Locator    
 
     constructor(page: Page) {
         super(page);
@@ -29,7 +30,7 @@ export class TrainerModulepage extends BasePage {
         this.myTrainer = page.locator("(//div/button[@class='wl-sidebar-item '])[1]");
         this.course = page.locator("//div[@class='tmt-course-cell-info']/h3");
         this.lessons = page.locator("//div[@class='wl-detail-tabs-list']/button[2]");
-
+        //span[normalize-space()='My Trainings']
         // This tab list container only renders on the Course Editor page,
         // not on the dashboard — so it's a reliable page-identity check.
         this.courseEditorTabs = page.locator("//div[@class='wl-detail-tabs-list']");
@@ -44,6 +45,7 @@ export class TrainerModulepage extends BasePage {
         this.editbtn = page.locator("(//div[@class='wl-module-actions']/button[@title='Edit'])[1]");
         this.deletebtn = page.locator("(//div[@class='wl-module-actions']/button[@title='Delete'])[1]");
         this.conformDelete = page.locator("//div[@class='wam-actions']/button/span[text()='Delete Lesson']");
+        this.myTainingModule=page.locator("//span[normalize-space()='My Trainings']")
     }
 
     async verifyDashboardWelcome(): Promise<void> {
@@ -124,7 +126,9 @@ export class TrainerModulepage extends BasePage {
         });
         return await module.first().isVisible().catch(() => false);
     }
-
+    async clickMyTrainigModule(){
+        await this.Click(this.myTainingModule);
+    }
     async clickeditbtn(){
         await this.Click(this.editbtn);
     }

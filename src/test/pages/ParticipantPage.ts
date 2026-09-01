@@ -10,7 +10,6 @@ export class ParticipantPage extends BasePage {
     readonly addParticipant: Locator;
     readonly participantCreated: Locator;
     readonly accountAlreadyExist:Locator;
-    
     constructor(page: Page) {
         super(page);
         this.accountAlreadyExist=this.page.locator("//span[normalize-space()='An account with this email already exists.']")
