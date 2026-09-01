@@ -64,3 +64,63 @@ Then('the admin should see the email already exists message', async  function (t
   // Write code here that turns the phrase above into concrete actions
   await expect(this.pp.accountAlreadyExist).toContainText("An account with this email already exists")
 });
+When('the admin clicks the Rejected filter', async function (this: CustomWorld) {
+    await this.pp.clickRejectedFilter();
+});
+
+Then('only rejected participants should be displayed', async function (this: CustomWorld) {
+    const statuses = await this.pp.getParticipantStatuses();
+
+    expect(statuses.length).toBeGreaterThan(0);
+
+    for (const status of statuses) {
+        expect(status.trim()).toBe('REJECTED');
+    }
+});
+When('the admin clicks the Pending filter', async function (this: CustomWorld) {
+    await this.pp.clickPendingFilter();
+});
+
+Then('only pending participants should be displayed', async function (this: CustomWorld) {
+    const statuses = await this.pp.getParticipantStatuses();
+
+    expect(statuses.length).toBeGreaterThan(0);
+
+    for (const status of statuses) {
+        expect(status.trim()).toBe('PENDING');
+    }
+});
+When('the admin clicks the Approved filter', async function (this: CustomWorld) {
+    await this.pp.clickApprovedFilter();
+});
+
+Then('only approved participants should be displayed', async function (this: CustomWorld) {
+    const statuses = await this.pp.getParticipantStatuses();
+
+    expect(statuses.length).toBeGreaterThan(0);
+
+    for (const status of statuses) {
+        expect(status.trim()).toBe('APPROVED');
+    }
+});
+Then('all participants should be displayed', async function (this: CustomWorld) {
+    const statuses = await this.pp.getParticipantStatuses();
+
+    expect(statuses.length).toBeGreaterThan(0);
+});
+When(
+  'the admin clicks the view participant profile button',
+  async function (this: CustomWorld) {
+    await this.pp.clickViewParticipantProfile();
+  }
+);
+
+Then(
+  'the participant profile should be displayed',
+  async function (this: CustomWorld) {
+    const profileTitle =
+      await this.pp.getParticipantProfileTitle();
+
+    expect(profileTitle).toBeTruthy();
+  }
+);
