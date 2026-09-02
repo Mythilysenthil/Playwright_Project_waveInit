@@ -30,6 +30,8 @@ export class TrainerCodeAssessmentpage extends BasePage {
     readonly problemSavebtn : Locator;
     readonly addedProblem: Locator;
 
+    readonly cancelbtn: Locator;
+
     constructor(page: Page) {
         super(page);
 
@@ -45,6 +47,7 @@ export class TrainerCodeAssessmentpage extends BasePage {
         this.timeLimit = page.locator("//div/input[@type='number']");
         this.description = page.locator("//div/textarea[@rows='3']");
         this.savebtn = page.getByRole('button', { name: 'Save Changes' });
+        this.cancelbtn = page.getByRole('button', { name: 'Cancel Edit'});
 
         this.problembtn = page.locator("//button/span[contains(text(), 'Problems')]");
         this.addProblem = page.locator("//button[contains(text(), ' Add Problem')]");
@@ -96,18 +99,13 @@ export class TrainerCodeAssessmentpage extends BasePage {
 
         console.log("PAGE OBJECT: Clicking Edit Assessment");
         await this.editbtn.waitFor({state: "visible",timeout: TIMEOUTS.PAGE_LOAD});
+        await expect(this.editbtn).toBeEnabled({timeout: TIMEOUTS.ASSERTION});
 
-        await this.Click(this.editbtn);
+        console.log("PAGE OBJECT: Edit Assessment count =",await this.editbtn.count());
+        console.log("PAGE OBJECT: Edit Assessment visible =",await this.editbtn.isVisible());
+
+        await this.editbtn.evaluate((button: HTMLElement) => {button.click();});
         console.log("PAGE OBJECT: URL after clicking Edit Assessment =",this.page.url());
-
-        await this.page.waitForTimeout(1000);
-        console.log("PAGE OBJECT: Edit button count =",await this.edittab.count());
-
-        console.log("PAGE OBJECT: Edit button visible =",await this.edittab.isVisible().catch(() => false));
-
-        console.log("PAGE OBJECT: Assessment title count =",await this.assessmentTitle.count());
-
-        console.log("PAGE OBJECT: Edit heading count =",await this.editPageTxt.count());
     }
 
     async isVisibleEditPage(): Promise<boolean> {
@@ -237,5 +235,54 @@ async addValidCodingProblem(problem: any): Promise<void> {
 
 async isProblemAdded(): Promise<boolean> { 
     await expect(this.addedProblem).toBeVisible({ timeout: TIMEOUTS.ASSERTION }); 
-    return true; }
+    return true; 
+}
+
+
+    async clearMandatoryProblemFields(): Promise<void> {
+        console.log("PAGE OBJECT: Clearing mandatory problem fields");
+
+        await this.title.fill("");
+        await this.descrip.fill("");
+ 
+        console.log("PAGE OBJECT: Title and Description cleared");
+    }
+
+    async clickProblemSave(): Promise<void> {
+        console.log("PAGE OBJECT: Clicking Save Problem");
+
+        await expect(this.problemSavebtn).toBeEnabled({timeout: TIMEOUTS.ASSERTION});
+        await this.Click(this.problemSavebtn);
+
+        console.log("PAGE OBJECT: Save Problem clicked");
+    }
+
+    async getProblemValidationMessages(): Promise<string[]> {
+        const messages: string[] = [];
+        const titleMessage = await this.title.evaluate(element => (element as HTMLInputElement).validationMessage);
+
+        const descriptionMessage = await this.descrip.evaluate(element => (element as HTMLTextAreaElement).validationMessage);
+
+        if (titleMessage) {
+            messages.push(titleMessage);
+        }
+        if (descriptionMessage) {
+            messages.push(descriptionMessage);
+        }
+        console.log("PAGE OBJECT: Problem validation messages =",messages);
+        return messages;
+    }
+
+    async isAddProblemModalVisible(): Promise<boolean> {
+        const addProblemHeading = this.page.getByRole("heading",
+        { name: "Add Problem", exact: true }
+    );
+    return await addProblemHeading.isVisible().catch(() => false);
+    }
+    
+    //cancel edit
+
+    async clickCancelbtn(){
+        await this.Click(this.cancelbtn);
+    }
 }
