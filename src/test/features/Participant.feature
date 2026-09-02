@@ -1,5 +1,5 @@
-@Subathra
-Feature: Subathra_ Participant_Feature_25/08/2026
+@Subathra @Participant
+Feature: Subathra_ Participant_Feature_25/08/2026_updated_01/09/2026_02/09/2026
     Background:
         Given the user launches the application
         When the user clicks on the Admin Login
@@ -50,3 +50,27 @@ Feature: Subathra_ Participant_Feature_25/08/2026
     Scenario: Verify admin can view participant profile
         When the admin clicks the view participant profile button
         Then the participant profile should be displayed
+
+    Scenario: Verify admin can view registered participant details
+        When the user selects a pending participant
+        And the user clicks the View button in Pending
+        Then the participant details should be displayed
+
+    Scenario: Verify admin can approve a registered participant
+        When the user selects a pending participant
+        And the user clicks the Approve button
+        Then the participant should be approved successfully
+
+    Scenario: Verify admin can reject a registered participant
+        When the user selects a pending participant
+        And the user clicks the Reject button
+        Then the participant should be rejected successfully
+
+    Scenario: Verify admin can delete a registered participant
+        When the user selects a pending participant
+        And the user clicks the Delete button
+        And the user confirms the deletion in pending 
+        Then the participant should be deleted successfully
+
+    Scenario: Verify admin can see the particpant page
+        Then admin can the participant title in particpant page
