@@ -101,4 +101,12 @@ Then('the participant list should be refreshed successfully', async function (th
     await expect(this.tcp.particpantRefreshed)
         .toContainText('Participant list refreshed');
 });
+When('the trainer clicks Export Participant List as CSV', async function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+  await this.pp.clickExportButton();
+});
 
+Then('the participant data should be exported to a CSV file', async function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+  await expect(this.pp.fileDownloaded).toBeTruthy()
+});
