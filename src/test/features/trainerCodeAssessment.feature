@@ -15,11 +15,11 @@ Feature: Mythily_26/08/2026_trainer_coding_assessment_functionality
     When the trainer selects the assigned course
     Then the trainer should be redirected to the Course Editor page
     When the trainer navigates to the Coding tab
-    And the trainer clicks on the "Create Assessment" button
 
   @createassessment
   Scenario: Verify that the trainer can create a draft coding assessment
-
+    
+    And the trainer clicks on the "Create Assessment" button
     Then the trainer should see the assessment created success message
     And the newly created coding assessment should be displayed with DRAFT status
 
@@ -81,3 +81,25 @@ Feature: Mythily_26/08/2026_trainer_coding_assessment_functionality
     Examples:
       | title               | timeLimit | description                                                                  |
       | Reverse a String    |     30    | Write a program to reverse a given string without using a built-in function. |
+
+  @generatewithai 
+  Scenario: Verify that the trainer can generate coding assessment content using AI 
+    
+    When the trainer clicks on the Generate with AI button 
+    Then the AI coding assessment generation option should be displayed 
+    When the trainer enters the topic "<topic>" 
+    And the trainer clicks on the Generate Assessment button 
+    Then the coding assessment created success message should be displayed 
+    
+    Examples: 
+    | topic               |
+    | String Manipulation |
+
+  @generatewithai_emptyfield
+  Scenario: Verify that the trainer cannot generate an AI coding assessment without a topic 
+    
+    When the trainer clicks on the Generate with AI button 
+    Then the AI coding assessment generation option should be displayed 
+    When the trainer leaves the topic field empty 
+    And the trainer clicks on the Generate Assessment button 
+    Then the topic validation message should be displayed "Please fill out this field."

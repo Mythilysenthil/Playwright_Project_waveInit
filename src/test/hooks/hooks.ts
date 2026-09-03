@@ -40,6 +40,7 @@ Before(async function(this:CustomWorld,scenario){
     this.ap=new AdminPage(this.page);
     this.ppm=new part_prof_mgmt_page(this.page);
     this.tmp = new TrainerModulepage(this.page);
+    this.tca = new TrainerCodeAssessmentpage(this.page);
     this.mp=new MyCoursePage(this.page);
     this.dp=new DashboardPage(this.page);
     this.tp=new TrainigProgramPage(this.page);
