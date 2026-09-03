@@ -32,11 +32,17 @@ export class TrainerCodeAssessmentpage extends BasePage {
 
     readonly cancelbtn: Locator;
 
+    readonly generateAIbtn: Locator;
+    readonly genarateOption: Locator;
+    readonly prompt: Locator;
+    readonly generateAssessment: Locator;
+    readonly AIcreateMsg: Locator;
+
     constructor(page: Page) {
         super(page);
 
         this.page = page;
-        this.coding = page.locator("//div[@class='wl-detail-tabs-list']/button[4]");
+        this.coding = page.getByRole("tab", { name: "Coding", exact: true });
         this.createAssessment = page.locator( "//div[@class='cct-actions']/button[@class='cct-btn-primary']");
         this.assCreationMsg = page.locator("//div[text()='Assessment created (DRAFT)']");
         this.draftAss = page.locator("//tbody/tr/td[4]/span").first();
@@ -62,10 +68,16 @@ export class TrainerCodeAssessmentpage extends BasePage {
         this.explanation = page.locator("//label[contains(text(), 'Explanation (optional)')]/following-sibling::textarea");
         this.problemSavebtn = page.getByRole('button', {name:'Save Problem'});
         this.addedProblem = page.locator("//div[contains(text(), 'Reverse a String')]");
+
+        this.generateAIbtn = page.getByRole('button', {name : ' Generate with AI'});
+        this.genarateOption = page.locator("//div[contains(text(), 'Generate Coding Assessment with AI')]");
+        this.prompt = page.locator("//label[contains(text(), 'Topic or Prompt ')]/following-sibling::textarea");
+        this.generateAssessment = page.getByRole('button', {name: ' Generate Assessment'});
+        this.AIcreateMsg = page.getByText("Coding assessment created successfully");
     }   
 
-    async clickCoding() {
-        await this.Click(this.coding);
+    async clickCoding(): Promise<void> { 
+        await this.Click(this.coding); 
     }
 
     async clickCreateAssessment(): Promise<void> {
@@ -284,5 +296,31 @@ async isProblemAdded(): Promise<boolean> {
 
     async clickCancelbtn(){
         await this.Click(this.cancelbtn);
+    }
+
+    // code generate with AI
+   
+    async clickgenerateAIBtn(){
+        await this.Click(this.generateAIbtn);
+    }
+
+    async setPrompt(title: string){
+        await this.Fill(this.prompt,title);
+    }
+
+    async clickGenerateAssessment(){
+       await this.Click(this.generateAssessment);
+    }
+
+    // code generate with AI - empty field
+
+    async emptyPrompt(){
+        await this.prompt.fill("");
+    }
+
+    async getValidationMessage(locator: Locator): Promise<string> {
+        return await locator.evaluate(
+            (element: HTMLInputElement) => element.validationMessage
+       );
     }
 }

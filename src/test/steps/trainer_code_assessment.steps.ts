@@ -1,10 +1,9 @@
+import { TIMEOUTS } from './../constants/timeouts';
 import { When, Then } from '@cucumber/cucumber';
 import { expect } from '@playwright/test';
 
 import { CustomWorld } from '../world/CustomWorld';
-import { TIMEOUTS } from '../constants/timeouts';
 import codingProblems from "../test-data/codingProblems.json";
-
 
 When(`the trainer navigates to the Coding tab`, async function (this: CustomWorld) {
     await this.tca.clickCoding();
@@ -114,4 +113,35 @@ When(`the trainer clicks on the Cancel button` ,async function (this: CustomWorl
 Then(`the trainer should return to the Coding page`, async function (this: CustomWorld) {
     const isVisibleEditTab = await this.tca.edittab;
     expect(isVisibleEditTab).toBeVisible();
+});
+
+//Code generate with AI
+When(`the trainer clicks on the Generate with AI button`, async function (this: CustomWorld) {
+    await this.tca.clickgenerateAIBtn();
+});
+
+Then(`the AI coding assessment generation option should be displayed`, async function (this: CustomWorld) {
+    expect (await this.tca.genarateOption).toBeVisible({timeout: TIMEOUTS.ASSERTION});
+});
+
+When(`the trainer enters the topic {string}`, async function (this: CustomWorld, topic:string) {
+    await this.tca.setPrompt(topic);
+});
+
+When(`the trainer clicks on the Generate Assessment button`, async function (this: CustomWorld) {
+    await this.tca.clickGenerateAssessment();
+});
+
+Then(`the coding assessment created success message should be displayed`, async function (this: CustomWorld) {
+    expect(await this.tca.AIcreateMsg).toBeVisible({timeout: TIMEOUTS.PAGE_LOAD});
+});
+
+//Code generate with AI - empty field
+When(`the trainer leaves the topic field empty`, async function (this: CustomWorld) {
+    await this.tca.emptyPrompt();
+});
+
+Then(`the topic validation message should be displayed {string}`, async function (this: CustomWorld, expectedMessage: string) {
+    const actualMessage = await this.tca.getValidationMessage(this.tca.prompt);
+    expect(actualMessage).toBe(expectedMessage);
 });
