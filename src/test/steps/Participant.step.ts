@@ -222,3 +222,98 @@ Then('admin can the participant title in particpant page', async function (this:
   // Write code here that turns the phrase above into concrete actions
   await expect(this.pp.particpantTitle).toContainText("Participants")
 });
+When(
+    'the admin clicks the View button for an approved participant',
+    async function (this: CustomWorld) {
+        await this.pp.clickViewParticipantProfile();
+    }
+);
+
+Then(
+    'the approved participant details should be displayed',
+    async function (this: CustomWorld) {
+        const profileTitle =
+            await this.pp.getParticipantProfileTitle();
+
+        expect(profileTitle).toBeTruthy();
+    }
+);
+
+When(
+    'the admin clicks the View button for a rejected participant',
+    async function (this: CustomWorld) {
+        await this.pp.clickViewParticipantProfile();
+    }
+);
+
+Then(
+    'the rejected participant details should be displayed',
+    async function (this: CustomWorld) {
+        const profileTitle =
+            await this.pp.getParticipantProfileTitle();
+
+        expect(profileTitle).toBeTruthy();
+    }
+);
+
+When(
+    'the admin clicks the Delete button for a rejected participant',
+    async function (this: CustomWorld) {
+        await this.pp.clickDeleteParticipant();
+    }
+);
+
+When(
+    'the admin confirms the deletion',
+    async function (this: CustomWorld) {
+        await this.pp.clickConfirmDelete();
+    }
+);
+
+Then(
+    'the rejected participant should be deleted successfully',
+    async function (this: CustomWorld) {
+        await this.pp.verifyParticipantRemoved();
+    }
+);
+
+When(
+    'the user selects multiple rejected participants',
+    async function (this: CustomWorld) {
+        await this.pp.selectMultipleRejectedParticipants();
+    }
+);
+
+When(
+    'the user clicks the bulk Delete button',
+    async function (this: CustomWorld) {
+        await this.pp.clickBulkDelete();
+    }
+);
+
+When(
+    'the user confirms the bulk deletion',
+    async function (this: CustomWorld) {
+        await this.pp.clickBulkConfirmDelete();
+    }
+);
+
+Then(
+    'the selected rejected participants should be deleted successfully',
+    async function (this: CustomWorld) {
+        await this.pp.verifyBulkParticipantRemoved();
+    }
+);
+When(
+    'the user does not select any rejected participant',
+    async function (this: CustomWorld) {
+        // Intentionally do not select any participant
+    }
+);
+
+Then(
+    'the bulk Delete button should be disabled',
+    async function (this: CustomWorld) {
+        await expect(this.pp.bulkDelete).toBeTruthy();
+    }
+);
