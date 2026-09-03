@@ -18,6 +18,7 @@ import { TrainerCodeAssessmentpage } from '../pages/trainerCodeAssessmentPage';
 import { TrainerPage } from '../pages/TrainerPage';
 import { ParticipantPage } from '../pages/ParticipantPage';
 import { TrainerCoursePage } from '../pages/TrainerCoursePage';
+import { AdminInterviewPage } from '../pages/AdminInterviewPage';
 
 export class CustomWorld extends World{
     browser!:Browser;
@@ -40,6 +41,7 @@ export class CustomWorld extends World{
     t!:TrainerPage;
     pp!:ParticipantPage;
     tcp!:TrainerCoursePage;
+    aip!:AdminInterviewPage;
 }
 
 setWorldConstructor(CustomWorld);

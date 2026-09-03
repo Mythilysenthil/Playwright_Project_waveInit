@@ -29,3 +29,7 @@ Feature: TamilKumar 01-09-2026 Trainer Course Feature
         When the trainer clicks any course and clicks Invite Participants
         And the trainer clicks the Refresh button
         Then the participant list should be refreshed successfully
+    Scenario: Export Participant List as CSV
+        When the trainer clicks any course and clicks Invite Participants
+        And the trainer clicks Export Participant List as CSV
+        Then the participant data should be exported to a CSV file

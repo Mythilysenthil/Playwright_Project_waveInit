@@ -17,8 +17,10 @@ export class AdminPage extends BasePage{
     readonly passwordRequired:Locator;
     readonly passwordNotMatch:Locator;
     readonly participantModule:Locator;
+    readonly interviewModule:Locator
     constructor(page:Page){
         super(page);
+        this.interviewModule=this.page.locator("//span[normalize-space()='Interviews']")
         this.participantModule=this.page.locator("//span[normalize-space()='Participants']")
         this.adminPortal=this.page.locator("//div[@class='wl-sidebar-tagline']");
         this.TrainigProgram=this.page.locator("//span[normalize-space()='Training Programs']")
@@ -34,6 +36,9 @@ export class AdminPage extends BasePage{
         this.emailRequired=this.page.locator("//div[normalize-space()='Enter a valid email address']")
         this.passwordRequired=this.page.locator("//div[normalize-space()='Password is required']")
         this.passwordNotMatch=this.page.locator("//div[normalize-space()='Passwords do not match']")
+    }
+    async clickInterviewModoule(){
+        await this.Click(this.interviewModule)
     }
     async clickTrainingProgram(){
         await this.Click(this.TrainigProgram)
