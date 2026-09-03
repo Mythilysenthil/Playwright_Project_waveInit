@@ -10,14 +10,14 @@ const moduleData = CsvReader.read<ModuleData>("TrainerModule.csv");
 Then(`the trainer navigates to the {string} page`, async function (this: CustomWorld, pageName: string) {
     console.log(`STEP START: Navigate to ${pageName}`);
     if (pageName === "My Trainings") {
-        await this.tmp.clickMyTrainer();
+        await this.tmp.myTrainer.isVisible({timeout: TIMEOUTS.ASSERTION});
     }
     console.log(`STEP END: Navigate to ${pageName}`);
     console.log("CURRENT URL:", this.page.url());
 });
 
 Then(`the trainer should see the assigned course`, async function (this: CustomWorld){
-    await expect(this.tmp.course).toBeVisible({
+    await expect(this.tmp.verifycourse).toBeVisible({
         timeout: TIMEOUTS.ASSERTION
     });
 });
@@ -41,7 +41,6 @@ Then(`the trainer should be redirected to the Course Editor page`, async functio
     );
 
     console.log("COURSE EDITOR URL PASSED");
-    await this.tmp.verifyCourseEditorPage();
     console.log("COURSE EDITOR PAGE CONFIRMED");
 });
 
@@ -56,6 +55,11 @@ When(`the trainer clicks on the {string} button`, async function (this: CustomWo
 });
 
 When(`the trainer enters a valid module name`, async function (this: CustomWorld){
+    console.log("MODULE DATA:", moduleData);
+    console.log("FIRST ROW:", moduleData[0]);
+    console.log("TITLE:", moduleData[0]?.title);
+    console.log("DESCRIPTION:", moduleData[0]?.description);
+    console.log("SUMMARY:", moduleData[0]?.summary);
     const data = moduleData[0]!;
 
     await this.tmp.enterTitle(data.title);

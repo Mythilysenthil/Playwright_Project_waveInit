@@ -27,10 +27,10 @@ Scenario: Verify that the trainer is unable to login with invalid password
   Scenario: Verify that the trainer login is prevented when username is empty
     When the trainer enters valid password without username
     And the trainer clicks on the login button
-    Then the trainer should see the validation message "Please fill out this field."
+    Then the trainer should see the username validation message "Please fill out this field."
 
 @emptypassword
   Scenario: Verify that the trainer login is prevented when password is empty
     When the trainer enters valid username without password
     And the trainer clicks on the login button
-    Then the trainer should see the validation message "Please fill out this field."     
+    Then the trainer should see the password validation message "Please fill out this field."     

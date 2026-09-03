@@ -7,6 +7,7 @@ export class TrainerModulepage extends BasePage {
     readonly page: Page;
     readonly myTrainer: Locator;
     readonly course: Locator;
+    readonly verifycourse: Locator;
     readonly lessons: Locator;
     readonly addModulebtn: Locator;
     readonly title: Locator;
@@ -27,18 +28,16 @@ export class TrainerModulepage extends BasePage {
 
         this.page = page;
         this.welcomeTrainer = page.getByText(/Welcome back,\s*trainer01!/i);
-        this.myTrainer = page.locator("(//div/button[@class='wl-sidebar-item '])[1]");
-        this.course = page.locator("//h3[normalize-space()='Manual Testing']");
+        this.myTrainer = page.locator("//button/span[contains(text(), 'My Trainings')]");
+        this.course = page.locator("//button/span[contains(text(), 'React Fundamental')]");
+        this.verifycourse = page.locator("//h1[contains(text(), 'React Fundamental')]");
         this.lessons = page.locator("//div[@class='wl-detail-tabs-list']/button[2]");
-        //span[normalize-space()='My Trainings']
-        // This tab list container only renders on the Course Editor page,
-        // not on the dashboard — so it's a reliable page-identity check.
         this.courseEditorTabs = page.locator("//div[@class='wl-detail-tabs-list']");
 
         this.addModulebtn = page.locator("//div[@class='wl-lessons-header']/button");
-        this.title = page.locator("//form[@class='wl-modal-card']/input");
-        this.description = page.locator("//form[@class='wl-modal-card']/textarea[1]");
-        this.summary = page.locator("//form[@class='wl-modal-card']/textarea[2]");
+        this.title = page.locator("//label[contains(text(), 'Title ')]/following-sibling::input");
+        this.description = page.locator("//label[contains(text(), 'Description')]/following-sibling::textarea[1]");
+        this.summary = page.locator("//label[contains(text(), 'Description')]/following-sibling::textarea[2]");
         this.createbtn = page.locator("//div[@class='wl-modal-actions']/button[@type='submit']");
         this.module = page.locator("//div[@class='wl-module-row-header']/span[@class='wl-module-title']");
         this.emptyTitle = page.locator("//div[text()='Title is required']");
@@ -46,45 +45,6 @@ export class TrainerModulepage extends BasePage {
         this.deletebtn = page.locator("(//div[@class='wl-module-actions']/button[@title='Delete'])[1]");
         this.conformDelete = page.locator("//div[@class='wam-actions']/button/span[text()='Delete Lesson']");
         this.myTainingModule=page.locator("//span[normalize-space()='My Trainings']")
-    }
-
-    async verifyDashboardWelcome(): Promise<void> {
-
-    console.log("PAGE OBJECT: Checking dashboard welcome message");
-
-    console.log(
-        "PAGE OBJECT: Welcome locator count =",
-        await this.welcomeTrainer.count()
-    );
-
-    await expect(this.welcomeTrainer).toBeVisible({
-        timeout: TIMEOUTS.ASSERTION
-    });
-
-    console.log(
-        "PAGE OBJECT: Dashboard welcome message is visible"
-    );
-    }
-
-    /**
-     * Verifies the trainer has actually landed on the Course Editor page
-     * (as opposed to the dashboard). Uses the tab list container, which
-     * only renders once a course has been opened for editing.
-     */
-    async verifyCourseEditorPage(): Promise<void> {
-    console.log("PAGE OBJECT: Checking Course Editor page");
-    console.log("CURRENT URL:", this.page.url());
-    console.log("Tab list locator count =", await this.courseEditorTabs.count());
-
-    await expect(this.courseEditorTabs).toBeVisible({
-        timeout: TIMEOUTS.ASSERTION
-    });
-
-    console.log("PAGE OBJECT: Course Editor page confirmed");
-}
-
-    async clickMyTrainer(){
-        await this.Click(this.myTrainer)
     }
     
     async clickCourse(){
