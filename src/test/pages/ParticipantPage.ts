@@ -23,17 +23,14 @@ export class ParticipantPage extends BasePage {
   readonly participantProfileTitle: Locator;
   readonly fileDownloaded: Locator;
 
-  // Approve / Reject / Delete
   readonly approveParticipant: Locator;
   readonly rejectParticipant: Locator;
   readonly deleteParticipant: Locator;
 
-  // Success messages
   readonly participantApproved: Locator;
   readonly participantRejected: Locator;
   readonly participantRemoved: Locator;
 
-  // Delete confirmation
   readonly confirmDelete: Locator;
 
   constructor(page: Page) {
@@ -95,7 +92,6 @@ export class ParticipantPage extends BasePage {
       "//tr/td[3]",
     );
 
-    // View participant profile
     this.viewParticipantProfile = this.page.locator(
       "//button[@title='View participant profile']",
     );
@@ -104,37 +100,30 @@ export class ParticipantPage extends BasePage {
       "//h3[@class='tpm-title']",
     );
 
-    // Approve participant
     this.approveParticipant = this.page.locator(
       "//button[@title='Approve participant']",
     );
 
-    // Reject participant
     this.rejectParticipant = this.page.locator(
       "//button[@title='Reject participant']",
     );
 
-    // Delete participant
     this.deleteParticipant = this.page.locator(
       "//button[@title='Delete participant']",
     );
 
-    // Participant approved success message
     this.participantApproved = this.page.locator(
       "//div[normalize-space()='Participant approved successfully']",
     );
 
-    // Participant rejected success message
     this.participantRejected = this.page.locator(
       "//div[contains(text(),'Participant rejected successfully')]",
     );
 
-    // Delete confirmation button
     this.confirmDelete = this.page.locator(
       "//button[@class='reg-admin-btn reg-admin-btn--danger']",
     );
 
-    // Participant removed success message
     this.participantRemoved = this.page.locator(
       "//div[contains(text(),'Participant removed successfully')]",
     );
@@ -227,7 +216,6 @@ export class ParticipantPage extends BasePage {
     return (await this.participantProfileTitle.textContent()) ?? "";
   }
 
-  // Approve participant
   async clickApproveParticipant() {
     await this.approveParticipant.first().click();
   }
@@ -238,7 +226,6 @@ export class ParticipantPage extends BasePage {
     });
   }
 
-  // Reject participant
   async clickRejectParticipant() {
     await this.rejectParticipant.first().click();
   }
@@ -249,12 +236,10 @@ export class ParticipantPage extends BasePage {
     });
   }
 
-  // Delete participant
   async clickDeleteParticipant() {
     await this.deleteParticipant.first().click();
   }
 
-  // Confirm delete
   async clickConfirmDelete() {
     await this.confirmDelete.first().click();
   }
