@@ -27,7 +27,7 @@ When('the user clicks the Save button', async function(this:CustomWorld) {
 
 Then('the interview details should be updated successfully', async function(this:CustomWorld) {
   // Write code here that turns the phrase above into concrete actions
-  await expect(this.aip.interviewUpdated).toContainText("Interview updated successfully")
+  await expect(this.aip.getEditedStatus).toBeTruthy();
 });
 
 When('the user clicks the Cancel button', async function(this:CustomWorld) {

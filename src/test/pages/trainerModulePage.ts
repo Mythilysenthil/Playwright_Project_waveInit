@@ -28,7 +28,7 @@ export class TrainerModulepage extends BasePage {
         this.page = page;
         this.welcomeTrainer = page.getByText(/Welcome back,\s*trainer01!/i);
         this.myTrainer = page.locator("(//div/button[@class='wl-sidebar-item '])[1]");
-        this.course = page.locator("//h3[normalize-space()='Manual Testing']");
+        this.course = page.locator("//h3").first();
         this.lessons = page.locator("//div[@class='wl-detail-tabs-list']/button[2]");
         //span[normalize-space()='My Trainings']
         // This tab list container only renders on the Course Editor page,

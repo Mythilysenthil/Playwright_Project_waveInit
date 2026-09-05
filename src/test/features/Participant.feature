@@ -72,7 +72,39 @@ Feature: Subathra 28-08-2026 Participant feature
     Scenario: Verify admin can delete a registered participant
         When the user selects a pending participant
         And the user clicks the Delete button
-        And the user confirms the deletion in pending 
+        And the user confirms the deletion in pending
         Then the participant should be deleted successfully
     Scenario: Verify admin can see the particpant page
         Then admin can the participant title in particpant page
+    @ApprovedParticipant
+    Scenario: Verify admin can view an approved participant
+        When the admin clicks the Approved filter
+        And the admin clicks the View button for an approved participant
+        Then the approved participant details should be displayed
+
+    @RejectedParticipant
+    Scenario: Verify admin can view a rejected participant
+        When the admin clicks the Rejected filter
+        And the admin clicks the View button for a rejected participant
+        Then the rejected participant details should be displayed
+
+    @DeleteRejectedParticipant
+    Scenario: Verify admin can delete a rejected participant
+        When the admin clicks the Rejected filter
+        And the admin clicks the Delete button for a rejected participant
+        And the admin confirms the deletion
+        Then the rejected participant should be deleted successfully
+
+    @BulkDeleteRejectedParticipant
+    Scenario: Verify admin can bulk delete rejected participants
+        When the admin clicks the Rejected filter
+        And the user selects multiple rejected participants
+        And the user clicks the bulk Delete button
+        And the user confirms the bulk deletion
+        Then the selected rejected participants should be deleted successfully
+    @InvalidBulkDeleteRejectedParticipant
+    Scenario: Verify bulk Delete button is disabled when no rejected participant is selected
+        When the admin clicks the Rejected filter
+        And the user does not select any rejected participant
+        Then the bulk Delete button should be disabled
+

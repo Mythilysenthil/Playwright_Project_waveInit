@@ -97,6 +97,11 @@ Then('only the trainer {string} should be shown',async function (this: CustomWor
         }
     }
 );
+When('the user enters the following invalid trainer names:', async function (this:CustomWorld,DataTable) {
+  // Write code here that turns the phrase above into concrete actions
+  const trainers=DataTable.hashes();
+  await this.t.setName(trainers[0].TrainerName);
+});
 When('the user enters the following invalid trainer name:',async function (this: CustomWorld, dataTable) {
 
         const trainers = dataTable.hashes();

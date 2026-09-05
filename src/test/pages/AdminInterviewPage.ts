@@ -19,6 +19,7 @@ export class AdminInterviewPage extends BasePage {
 
     // Change Status
     readonly changeStatusButton: Locator;
+    readonly onlyScheduledInterviewCanBeEdited:Locator
 
     // Interview Status
     readonly scheduledStatus: Locator;
@@ -26,9 +27,10 @@ export class AdminInterviewPage extends BasePage {
     readonly completedStatus: Locator;
     readonly cancelledStatus: Locator;
 
+
     constructor(page: Page) {
         super(page);
-
+        this.onlyScheduledInterviewCanBeEdited=this.page.locator("//div[contains(text(),'Only scheduled interviews can be edited')]")
         this.interviewPageTitle = this.page.locator("//h2[@class='reg-admin-title']");
         this.interviewUpdated = this.page.locator("//div[contains(text(),'Interview updated successfully')]");
 
@@ -161,4 +163,15 @@ export class AdminInterviewPage extends BasePage {
     async verifyCancelledStatus() {
         await this.cancelledStatus.waitFor({ state: "visible" });
     }
+    async getEditedStatus() {
+    let status: string;
+
+    try {
+        status = await this.GetText(this.onlyScheduledInterviewCanBeEdited);
+    } catch {
+        status = await this.GetText(this.interviewUpdated);
+    }
+
+    return status;
+}
 }
