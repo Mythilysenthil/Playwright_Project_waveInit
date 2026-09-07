@@ -13,7 +13,7 @@ export class MyCoursePage extends BasePage{
         this.searchedCourses=this.page.locator("//h3");
         this.noCourseFound=this.page.locator("//p[normalize-space()='No courses found matching your criteria']");
         this.courseDropDown=this.page.locator("//select[@class='tmt-select']");
-        this.playwrightAutomationcourse=this.page.locator("//h3[normalize-space()='Playwright Automation']")
+        this.playwrightAutomationcourse=this.page.locator("//h3[normalize-space()='Playwright automation']")
     }
     async setSearchkeyword(keyword:string){
         await this.TypeText(this.searchbar,keyword)

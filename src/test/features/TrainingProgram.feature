@@ -80,17 +80,17 @@ Feature: Subathra_Admin_Login_Feature_25/08/2026
         And the user clicks the leaderboard button
         Then the user should see the training leaderboard
 
-    Scenario: Verify admin can view an approved participant
+    Scenario: Verify admin can view an approved participant in TrainingProgram
         When the admin clicks the Approved filter
-        And the admin clicks the View button for an approved participant
-        Then the approved participant details should be displayed
+        And the admin clicks the View button for an approved participant in TrainingProgram
+        Then the approved participant details should be displayed in TrainingProgram
 
     Scenario: Verify admin can view a rejected participant
         When the admin clicks the Rejected filter
         And the admin clicks the View button for a rejected participant
-        Then the rejected participant details should be displayed
+        Then the rejected participant details should be displayed in TrainingProgram
 
-    Scenario: Verify admin can delete a rejected participant
+    Scenario: Verify admin can delete a rejected participant in TrainingProgram
         When the admin clicks the Rejected filter
         And the admin clicks the Delete button for a rejected participant
         And the admin confirms the deletion

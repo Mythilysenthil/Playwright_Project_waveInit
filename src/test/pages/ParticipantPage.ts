@@ -69,7 +69,7 @@ export class ParticipantPage extends BasePage {
     ); 
  
     this.password = this.page.locator( 
-      "//input[@placeholder='Enter password (min 6 chars)']", 
+      "//input[@placeholder='Enter password (min 8 chars, mixed case, symbol)']", 
     ); 
  
     this.autoGenarate = this.page.locator( 
@@ -227,10 +227,9 @@ export class ParticipantPage extends BasePage {
     await this.Click(this.rejectedFilter); 
   } 
  
-  async getParticipantStatuses(): Promise<string[]> { 
-    await this.participantStatus.first().waitFor({ 
-      state: "visible", 
-    }); 
+  async getParticipantStatuses() { 
+    
+    await this.page.waitForTimeout(3000)
  
     return await this.GetAllTextContents( 
       this.participantStatus, 

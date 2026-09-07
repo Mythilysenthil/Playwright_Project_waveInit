@@ -29,3 +29,37 @@ Feature: TamilKumar 02-09-2026 Interview Details Management
     Scenario: Verify user can see the interview page
         When the user navigates to the Interview module
         Then the user can see interview title
+
+        @AllInterviews
+    Scenario: Verify user can view all interviews
+        When the user navigates to the Interview module
+        When the user clicks the All filter
+        Then the interview list should be displayed
+
+    @ScheduledInterviews
+    Scenario: Verify user can view scheduled interviews
+        When the user navigates to the Interview module
+        When the user clicks the Scheduled filter
+        And the user clicks the Change Status button of the first interview
+        Then the interview status should be Scheduled
+
+    @InProgressInterviews
+    Scenario: Verify user can view in progress interviews
+        When the user navigates to the Interview module
+        When the user clicks the In Progress filter
+        And the user clicks the Change Status button of the first interview
+        Then the interview status should be In Progress
+
+    @CompletedInterviews
+    Scenario: Verify user can view completed interviews
+        When the user navigates to the Interview module
+        When the user clicks the Completed filter
+        And the user clicks the Change Status button of the first interview
+        Then the interview status should be Completed
+
+    @CancelledInterviews
+    Scenario: Verify user can view cancelled interviews
+        When the user navigates to the Interview module
+        When the user clicks the Cancelled filter
+        And the user clicks the Change Status button of the first interview
+        Then the interview status should be Cancelled

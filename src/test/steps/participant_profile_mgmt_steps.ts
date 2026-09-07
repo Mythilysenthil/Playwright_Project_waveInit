@@ -10,7 +10,7 @@ import personalInformationFixture from '../test-data/Participant_PersonalDetails
 
 const temporaryUser = {
   email: 'kp@gmail.com',
-  password: 'kp12345'
+  password: 'Kiot@1234'
 };
 
 const educationData = CsvReader.read<LearnerEducation>('EducationLearner.csv');

@@ -13,7 +13,7 @@ export class TrainerPage extends BasePage{
     constructor(page:Page){
         super(page);
         this.trainerSearchBar=this.page.locator("//input[@placeholder='Search trainers...']")
-        this.trainerNames=this.page.locator("//tr/td[1]");
+        this.trainerNames=this.page.locator("//tr/td[2]");
         this.noTrainerFound=this.page.locator("//h3[normalize-space()='No Trainers Found']")
         this.deleteButton=this.page.locator("//button[@title='Delete Trainer']").first();
         this.confirmDelete=this.page.locator("//button[@class='reg-admin-btn reg-admin-btn--danger']")

@@ -167,20 +167,22 @@ When('the user clicks the {string} training filter',async function (this: Custom
 );
 
 
-Then('only {string} training programs should be displayed',async function (this: CustomWorld, expectedStatus: string) {
-  if (expectedStatus === "Active") {
-            // All filter can contain Active, Upcoming and Completed
-            const statuses = await this.tp.getAllStatuses();
+Then(
+    'only {string} training programs should be displayed',
+    async function (this: CustomWorld, expectedStatus: string) {
 
-            expect(statuses.length).toBeGreaterThan(0);
-            return;
-        }
         const statuses = await this.tp.getAllStatuses();
+
+        console.log('Expected Status:', expectedStatus);
+        console.log('Actual Statuses:', statuses);
+
+        // Verify that at least one training program is displayed
         expect(statuses.length).toBeGreaterThan(0);
 
+        // Verify every displayed program has the expected status
         for (const status of statuses) {
             expect(status.trim().toUpperCase())
-                .toBe(expectedStatus.toUpperCase());
+                .toBe(expectedStatus.trim().toUpperCase());
         }
     }
 );
@@ -208,4 +210,12 @@ When('the user clicks the leaderboard button', async function (this:CustomWorld)
 Then('the user should see the training leaderboard', async function (this:CustomWorld) {
   // Write code here that turns the phrase above into concrete actions
   await expect(this.tp.leaderBoard).toBeVisible();
+});
+When('the admin clicks the View button for an approved participant in TrainingProgram', async function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+  await this.tp.clickViewdetails();
+});
+Then('the approved participant details should be displayed in TrainingProgram', async function (this:CustomWorld) {
+  // Write code here that turns the phrase above into concrete actions
+  await expect(this.tp.trainingDetails).toContainText("Training Details")
 });

@@ -65,7 +65,7 @@ export class TrainigProgramPage extends BasePage {
     this.searchCourse = this.page.locator(
       "//input[@placeholder='Search by title or trainer...']",
     );
-    this.courses = this.page.locator("//tr/td[1]");
+    this.courses = this.page.locator("//tr/td[2]");
     this.noCourseFound = this.page.locator(
       "//h3[normalize-space()='No Trainings Found']",
     );
@@ -76,7 +76,7 @@ export class TrainigProgramPage extends BasePage {
       "//h3[normalize-space()='Training Details']",
     );
     this.active = this.page.locator(
-      "//button[@class='reg-admin-filter-tab reg-admin-filter-tab--active']",
+      "//div[@class='reg-admin-filters']//button[2]",
     );
     this.upcoming = this.page.locator(
       "//div[@class='reg-admin-filters']//button[3]",
@@ -84,7 +84,7 @@ export class TrainigProgramPage extends BasePage {
     this.completed = this.page.locator(
       "//div[@class='reg-admin-filters']//button[4]",
     );
-    this.status = this.page.locator("//tr/td[7]/span");
+    this.status = this.page.locator("//tr/td[8]").first();
     this.editButton=this.page.locator("//button[@title='Edit Training']").first()
   }
   async clickAddCreateTraining() {
@@ -132,7 +132,7 @@ export class TrainigProgramPage extends BasePage {
     await this.Click(this.completed);
   }
   async getAllStatuses() {
-    await this.status.first().waitFor({state:"visible"})
+    await this.page.waitForTimeout(4000)
     return await this.GetAllTextContents(this.status);
   }
   async clickEdit(){

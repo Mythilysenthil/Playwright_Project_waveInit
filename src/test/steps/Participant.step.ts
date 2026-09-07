@@ -41,7 +41,7 @@ When(
         password: string
     ) {
         await this.pp.setName(name);
-        await this.pp.setEmail(email);
+        await this.pp.setAlreadyExistEmail(email);
         await this.pp.setPassword(password);
     }
 );

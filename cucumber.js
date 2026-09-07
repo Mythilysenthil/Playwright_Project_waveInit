@@ -42,7 +42,7 @@ module.exports = {
         ],
 
         paths: [
-            "@rerun.txt"
+            "rerun/@rerun.txt"
         ],
 
         order: "defined",
