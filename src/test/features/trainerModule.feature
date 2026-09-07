@@ -12,7 +12,8 @@ Feature: Mythily_25/08/2026_trainer_module_management_functionality
 
   @viewassignedcourse
   Scenario: Verify that the trainer can view the course assigned by the admin
-
+    
+    When the trainer selects the assigned course
     Then the trainer should see the assigned course
 
   @opencourse

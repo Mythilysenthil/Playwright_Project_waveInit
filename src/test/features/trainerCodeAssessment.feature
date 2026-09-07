@@ -15,11 +15,11 @@ Feature: Mythily_26/08/2026_trainer_coding_assessment_functionality
     When the trainer selects the assigned course
     Then the trainer should be redirected to the Course Editor page
     When the trainer navigates to the Coding tab
-    And the trainer clicks on the "Create Assessment" button
 
   @createassessment
   Scenario: Verify that the trainer can create a draft coding assessment
-
+    
+    And the trainer clicks on the "Create Assessment" button
     Then the trainer should see the assessment created success message
     And the newly created coding assessment should be displayed with DRAFT status
 
@@ -44,7 +44,7 @@ Feature: Mythily_26/08/2026_trainer_coding_assessment_functionality
       | title               | timeLimit | description                                                                  |
       | Reverse a String    |     30    | Write a program to reverse a given string without using a built-in function. |
       | Check Palindrome    |     25    | Write a program to check whether a given string is a palindrome.             |
-      | Find Maximum Number |     30    | Write a program to find the largest number in an integer array.              |
+      | Find Maximum Number |     30    | Write a program to find the largest number in an integer array.              |   
 
   @addproblems
   Scenario: Verify that the trainer can add coding problems to a draft assessment
@@ -55,3 +55,51 @@ Feature: Mythily_26/08/2026_trainer_coding_assessment_functionality
     When the trainer clicks on the Problems tab
     And the trainer adds a valid coding problem to the assessment
     Then the selected coding problem should be added successfully
+
+  @emptyproblem
+  Scenario: Verify that the trainer cannot save a coding problem without mandatory details
+
+    And the trainer clicks on the edit button of the draft coding assessment
+    And the trainer clicks on the Edit button in the assessment details
+    Then the coding assessment edit page should be displayed
+    When the trainer clicks on the Problems tab
+    And the trainer leaves the mandatory problem fields empty
+    And the trainer saves the coding problem
+    Then the validation messages should be displayed for the mandatory problem fields
+    And the coding problem should not be added successfully
+
+  @cancelassessment
+  Scenario: Verify that the trainer can cancel editing a coding assessment
+
+    And the trainer clicks on the edit button of the draft coding assessment
+    And the trainer clicks on the Edit button in the assessment details
+    Then the coding assessment edit page should be displayed
+    When the trainer enters coding assessment details with title "<title>", time limit "<timeLimit>", and description "<description>"
+    And the trainer clicks on the Cancel button
+    Then the trainer should return to the Coding page
+
+    Examples:
+      | title               | timeLimit | description                                                                  |
+      | Reverse a String    |     30    | Write a program to reverse a given string without using a built-in function. |
+
+  @generatewithai 
+  Scenario: Verify that the trainer can generate coding assessment content using AI 
+    
+    When the trainer clicks on the Generate with AI button 
+    Then the AI coding assessment generation option should be displayed 
+    When the trainer enters the topic "<topic>" 
+    And the trainer clicks on the Generate Assessment button 
+    Then the coding assessment created success message should be displayed 
+    
+    Examples: 
+    | topic               |
+    | String Manipulation |
+
+  @generatewithai_emptyfield
+  Scenario: Verify that the trainer cannot generate an AI coding assessment without a topic 
+    
+    When the trainer clicks on the Generate with AI button 
+    Then the AI coding assessment generation option should be displayed 
+    When the trainer leaves the topic field empty 
+    And the trainer clicks on the Generate Assessment button 
+    Then the topic validation message should be displayed "Please fill out this field."

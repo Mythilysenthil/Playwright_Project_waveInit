@@ -60,7 +60,7 @@ export class part_prof_mgmt_page extends BasePage {
 
         this.login_btn = this.page.locator("//button[@class='auth-submit-btn']");
 
-        this.profile_sidebar_btn = this.page.locator("//nav[@class='wl-sidebar-nav']/child::div[5]/descendant::button");
+        this.profile_sidebar_btn = this.page.locator("//nav[@class='wl-sidebar-nav']/child::div[6]/descendant::button");
 
         this.addSkill_btn = this.page.locator("//button[text()=' Add Skill']");
 
